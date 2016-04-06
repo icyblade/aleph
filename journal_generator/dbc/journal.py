@@ -113,7 +113,7 @@ class Journal:
         )
         
         # dollar handler
-        ret['journal_body_text'] = self.Spell(0).dollar_handler(ret['journal_body_text'])
+        ret['journal_body_text'] = self.Spell(0).parse_spell_description(ret['journal_body_text'])
                 
         # section type (可打断、重要、法术效果等)
         section_types = {
