@@ -3,12 +3,13 @@ import re
 from dbc.spell import Spell
 
 class Journal:
-    def __init__(self, cur, logger):
+    def __init__(self, cur, logger, difficulty_id='17'):
         self.cur = cur
         self.logger = logger
+        self.difficulty_id = difficulty_id
 
-    def Spell(self, spell_id):
-        return Spell(spell_id, self.cur, self.logger)
+    def Spell(self, spell_id, difficulty_id='17'):
+        return Spell(spell_id, self.cur, self.logger, difficulty_id=self.difficulty_id)
         
     def get_expansions(self):
         """

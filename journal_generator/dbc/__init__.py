@@ -29,5 +29,5 @@ class DBFilesClient:
     def Spell(self, spell_id):
         return Spell(spell_id, self.cur, self.logger)
         
-    def Journal(self):
-        return Journal(self.cur, self.logger)
+    def Journal(self, difficulty_id='17'):
+        return Journal(self.cur, self.logger, difficulty_id=difficulty_id)
