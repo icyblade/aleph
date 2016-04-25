@@ -1,4 +1,4 @@
-config = {
+db_config = {
   'user': '',
   'password': '',
   'host': '',
