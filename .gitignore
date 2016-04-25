@@ -2,8 +2,5 @@
 *.pyc
 
 # journal generator
-/journal_generator/debug.log
-/journal_generator/extract
-/journal_generator/listfile.bin
+/journal_generator/output
 /journal_generator/log
-/journal_generator/nga_format.txt

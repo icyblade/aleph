@@ -1,7 +1,6 @@
 #! coding: utf8
 import sqlite3, os
 from logger import configure_logger
-from wdb import wdb2sqlite as wdb2sqlite_func
 
 class Client:
     """WoW 客户端类"""
@@ -30,31 +29,3 @@ class Client:
             self.build_number = build_number[0]
         else:
             raise Exception('More than one build info in .build.info')
-        
-    def extract_dbs(self, pattern='DBFilesClient*'):
-        """从 CASC 里解压所有 DBC"""
-        output_path = '.\\extract\\{self.build_number}\\{self.locale_flags}'.format(
-            self = self,
-        )
-        if not os.path.exists(output_path):
-            os.makedirs(output_path)
-
-        cmd = '.\\lib\\CASCConsole.exe "{pattern}" "{self.root}" "{path}" {self.locale_flags} {self.content_flags} False'.format(
-            path = output_path,
-            self = self,
-            pattern = pattern,
-        )
-        os.system(cmd)
-
-    def wdb2sqlite(self, wdb_path):
-        """将指定 DBC 压入 sqlite 里
-        : param wdb_path: Spell.db2
-        """
-        input_path = '.\\extract\\{self.build_number}\\{self.locale_flags}\\DBFilesClient\\{wdb_path}'.format(
-            self = self,
-            wdb_path = wdb_path,
-        )
-        output_path = '.\\extract\\{self.build_number}\\{self.locale_flags}\\DBFilesClient.db'.format(
-            self = self,
-        )
-        wdb2sqlite_func(input_path, output_path)

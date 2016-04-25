@@ -3,20 +3,22 @@ import re
 from dbc.spell import Spell
 
 class Journal:
-    def __init__(self, cur, logger, difficulty_id='17'):
+    def __init__(self, cur, logger, difficulty_id):
         self.cur = cur
         self.logger = logger
         self.difficulty_id = difficulty_id
 
-    def Spell(self, spell_id, difficulty_id='17'):
-        return Spell(spell_id, self.cur, self.logger, difficulty_id=self.difficulty_id)
+    def Spell(self, spell_id, difficulty_id=None):
+        if difficulty_id is None:
+            difficulty_id = self.difficulty_id
+        return Spell(spell_id, self.cur, self.logger, difficulty_id=difficulty_id)
         
     def get_expansions(self):
         """
         rvalue: expansion_id, expansion_name
         """
         self.cur.execute(
-            'select expansion_id, expansion_name from JournalTier'
+            'select m_ID as expansion_id, field0 as expansion_name from dbc_JournalTier'
         )
         return self.cur.fetchall()
         
@@ -25,14 +27,14 @@ class Journal:
         rvalue: instance_id, instance_name, instance_description
         """
         if expansion_id:
-            sql = 'select a.instance_id, a.instance_name, \
-                a.instance_description from JournalInstance a \
-                left join JournalTierXInstance b \
-                on a.instance_id=b.instance_id \
-                where b.expansion_id="%s"' % expansion_id
+            sql = 'select a.m_ID as instance_id, a.field4 as instance_name, \
+                a.field5 as instance_description from dbc_JournalInstance a \
+                left join dbc_JournalTierXInstance b \
+                on a.m_ID=b.field1 \
+                where b.field0=%s' % expansion_id
         else:
-            sql = 'select instance_id, instance_name, \
-                instance_description from JournalInstance'
+            sql = 'select a.m_ID as instance_id, a.field4 as instance_name, \
+                a.field5 as instance_description from dbc_JournalInstance'
         self.logger.debug(sql)
         self.cur.execute(sql)
         return self.cur.fetchall()
@@ -42,11 +44,11 @@ class Journal:
         ravalue: boss_id, boss_name, boss_description
         """
         if instance_id:
-            sql = 'select boss_id, boss_name, boss_description \
-                from JournalEncounter where instance_id="%s"' % instance_id
+            sql = 'select m_ID as boss_id, field2 as boss_name, field3 boss_description \
+                from dbc_JournalEncounter where field7=%s order by field10' % instance_id
         else:
-            sql = 'select boss_id, boss_name, boss_description \
-                from JournalEncounter'
+            sql = 'select m_ID as boss_id, field2 as boss_name, field3 boss_description \
+                from dbc_JournalEncounter order by field10'
         self.cur.execute(sql)
         return self.cur.fetchall()
         
@@ -57,9 +59,10 @@ class Journal:
                 parent_section_id, spell_id, section_type, creature_name
         """
         if boss_id:
-            sql = 'select a.id, a.journal_title, a.journal_body_text, a.next_sibling_section_id, a.first_child_section_id, a.parent_section_id, a.spell_id, a.section_type, "" as creature_name from journalencountersection a where boss_id = "{boss_id}" and a.creature_id="0" union all select a.id, a.journal_title, a.journal_body_text, a.next_sibling_section_id, a.first_child_section_id, a.parent_section_id, a.spell_id, a.section_type, b.creature_name from journalencountersection a left join creature b on a.creature_id = b.journal_creature_id where boss_id = "{boss_id}" and a.creature_id<>"0"'.format(boss_id = boss_id)
+            sql = 'SELECT a.m_ID as id, a.field0 as journal_title, a.field1 as journal_body_text, a.field6 as next_sibling_section_id, a.field7 as first_child_section_id, a.field8 as parent_section_id, a.field3 as spell_id, a.field10 as section_type, "" AS creature_name FROM dbc_JournalEncounterSection a WHERE field5 = {boss_id} AND a.field2 = 0 UNION ALL SELECT a.m_ID as id, a.field0 as journal_title, a.field1 as journal_body_text, a.field6 as next_sibling_section_id, a.field7 as first_child_section_id, a.field8 as parent_section_id, a.field3 as spell_id, a.field10 as section_type, b.m_name FROM dbc_JournalEncounterSection a LEFT JOIN dbc_Creature b ON a.field2 = b.m_displayID_1 WHERE field5 = {boss_id} AND a.field2 <> 0'.format(boss_id = boss_id)
         else:
-            sql = 'select a.id, a.journal_title, a.journal_body_text, a.next_sibling_section_id, a.first_child_section_id, a.parent_section_id, a.spell_id, a.section_type, "" as creature_name from journalencountersection a where a.creature_id="0" union all select a.id, a.journal_title, a.journal_body_text, a.next_sibling_section_id, a.first_child_section_id, a.parent_section_id, a.spell_id, a.section_type, b.creature_name from journalencountersection a left join creature b on a.creature_id = b.journal_creature_id where a.creature_id<>"0"'
+            sql = 'SELECT a.m_ID as id, a.field0 as journal_title, a.field1 as journal_body_text, a.field6 as next_sibling_section_id, a.field7 as first_child_section_id, a.field8 as parent_section_id, a.field3 as spell_id, a.field10 as section_type, "" AS creature_name FROM dbc_JournalEncounterSection a WHERE D a.field2 = 0 UNION ALL SELECT a.m_ID as id, a.field0 as journal_title, a.field1 as journal_body_text, a.field6 as next_sibling_section_id, a.field7 as first_child_section_id, a.field8 as parent_section_id, a.field3 as spell_id, a.field10 as section_type, b.m_name FROM dbc_JournalEncounterSection a LEFT JOIN dbc_Creature b ON a.field2 = b.m_displayID_1 WHERE a.field2 <> 0'
+        self.logger.debug(sql)
         self.cur.execute(sql)
         return self.process_sections(self.cur.fetchall())
         
@@ -70,7 +73,7 @@ class Journal:
         if not sections:
             return []
         tmp = [i['next_sibling_section_id'] for i in sections]
-        ret = [i['id'] for i in sections if (not i['id'] in tmp) and i['parent_section_id']=='0']
+        ret = [i['id'] for i in sections if (not i['id'] in tmp) and i['parent_section_id']==0]
         if len(ret) != 1:
             print(sections)
             print(ret)
@@ -97,7 +100,7 @@ class Journal:
             if spell:
                 icon = spell.icon_path.split('\\')[-1].lower() if not spell.icon_path is None else None
                 if re.match('Section [0-9]+', ret['journal_title']) or re.match(u'第[0-9]+区', ret['journal_title']):
-                    ret['journal_title'], ret['journal_body_text'] = spell.spell_name, spell.spell_description
+                    ret['journal_title'] = spell.spell_name
                 if not ret['journal_title']: ret['journal_title'] = spell.spell_name
                 if not ret['journal_body_text']: ret['journal_body_text'] = spell.spell_description
         ret['icon_path'] = icon
@@ -112,7 +115,7 @@ class Journal:
             '[wow,spell,\g<spell_id>,cn[\g<spell_name>]]',
             ret['journal_body_text']
         )
-        
+
         # dollar handler
         ret['journal_body_text'] = self.Spell(0).parse_spell_description(ret['journal_body_text'])
                 
@@ -161,18 +164,18 @@ class Journal:
             yield (self.process_section(pivot), current_layer)
             
             # find next
-            if pivot['first_child_section_id'] != '0': # has child
+            if pivot['first_child_section_id'] != 0: # has child
                 new_pivot = sections_dict[pivot['first_child_section_id']]
                 current_layer += 1
-            elif pivot['next_sibling_section_id'] == '0': # end of current layer
+            elif pivot['next_sibling_section_id'] == 0: # end of current layer
                 if current_layer > 0:
                     current_layer -= 1
-                    if sections_dict[pivot['parent_section_id']]['next_sibling_section_id'] == '0':
+                    if sections_dict[pivot['parent_section_id']]['next_sibling_section_id'] == 0:
                         tmp = pivot.copy()
-                        while tmp['next_sibling_section_id'] == '0' and current_layer >= 0:
+                        while tmp['next_sibling_section_id'] == 0 and current_layer >= 0:
                             current_layer -= 1
                             tmp = sections_dict[tmp['parent_section_id']]
-                        if tmp['next_sibling_section_id'] == '0': # end of everything
+                        if tmp['next_sibling_section_id'] == 0: # end of everything
                             current_sections = [pivot]
                             break
                         tmp = sections_dict[tmp['next_sibling_section_id']]
