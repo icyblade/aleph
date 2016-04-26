@@ -515,9 +515,11 @@ struct spell_tt_t {
 	}
 	std::string to_str() const {
 		char buf[32];
-		std::string str = "[b]";
+		std::string str = "[wow,spell,";
+		str.append( _itoa(spell_id, buf, 10) );
+		str.append( ",cn[" );
 		str.append( name );
-		str.append( "[/b]" );
+		str.append( "]]" );
 		if (!subname.empty()) {
 			str.append("(");
 			str.append( subname );
@@ -533,6 +535,39 @@ struct spell_tt_t {
 		if (to_str().compare( rhs.to_str() )) return false;
 		return true;
 	}
+	std::string operator^( const spell_tt_t& rhs ) const {
+		char buf[32];
+		std::string d = "";
+		if ( name.compare(rhs.name) ) {
+			d += "[del][color=red][b]";
+			d += name;
+			d += "[/b][/color][/del]";
+		}
+		d += "[wow,spell,";
+		d.append( _itoa(spell_id, buf, 10) );
+		d += ",cn[";
+		d += rhs.name;
+		d += "]]";
+		if ( !subname.empty() && subname.compare(rhs.subname) ) {
+			d += "[del][color=red](";
+			d += subname;
+			d += ")[/color][/del]";
+		}
+		if ( !rhs.subname.empty() && subname.compare(rhs.subname) ) {
+			d += "[color=green](";
+			d += rhs.subname;
+			d += ")[/color]";
+		}
+		if ( !subname.empty() && !subname.compare(rhs.subname) ) {
+			d += "(";
+			d += subname;
+			d += ")";
+		}
+		d += u8"：";
+		d += diff( empty_line(tooltips), empty_line(rhs.tooltips) );
+		d += "\r\n";
+		return d;
+	}
 };
 struct spec_tt_t {
 	int spec_id;
@@ -547,13 +582,17 @@ struct spec_tt_t {
 struct class_tt_t {
 	int class_id;
 	std::string class_name;
+	std::string en_class_name;
 	std::vector<spell_tt_t> spells;
 	std::vector<spell_tt_t> talents;
 	std::vector<spell_tt_t> pvptalents;
 	std::vector<spec_tt_t> specs;
+	bool operator<( const class_tt_t& rhs ) const {
+		return en_class_name < rhs.en_class_name;
+	}
 };
 struct build_tt_t {
-	class_tt_t c[12];
+	std::vector<class_tt_t> c;
 };
 
 
@@ -563,8 +602,8 @@ void get_build_tooltips( Connection *con, build_t build, build_tt_t& tt ) {
 	try {
 		con->setSchema( build.toStr() + "_zhCN" );
 		Statement *stmt;
-		stmt = con->createStatement(); std::cout << "SELECT m_ID, m_className FROM dbc_ChrClasses" << std::endl;
-		ResultSet *res_class = stmt->executeQuery( "SELECT m_ID, m_className FROM dbc_ChrClasses" );
+		stmt = con->createStatement(); std::cout << "SELECT m_ID, m_className, m_ShortName FROM dbc_ChrClasses" << std::endl;
+		ResultSet *res_class = stmt->executeQuery( "SELECT m_ID, m_className, m_ShortName FROM dbc_ChrClasses" );
 
 		auto query_spell = []( ResultSet* res, int id ) {
 			spell_tt_t spell;
@@ -572,16 +611,18 @@ void get_build_tooltips( Connection *con, build_t build, build_tt_t& tt ) {
 			spell.name = res->getString( "m_name_lang" );
 			spell.subname = res->getString( "m_nameSubtext_lang" );
 			spell.tooltips = res->getString( "m_description_lang" );
-			if (spell.tooltips.length() > 1) spell.tooltips.append( "\r\n" );
-			spell.tooltips.append( res->getString( "m_auraDescription_lang" ) );
+			//if (spell.tooltips.length() > 1) spell.tooltips.append( "\r\n" );
+			//spell.tooltips.append( res->getString( "m_auraDescription_lang" ) );
 			return spell;
 		};
 		while (res_class->next()) {
+			class_tt_t c;
 			std::string class_name = res_class->getString( "m_className" );
 			int class_id = res_class->getInt( "m_ID" );
 			int class_mask = 1 << ( class_id - 1 );
-			tt.c[class_id - 1].class_id = class_id;
-			tt.c[class_id - 1].class_name = class_name;
+			c.class_id = class_id;
+			c.class_name = class_name;
+			c.en_class_name = res_class->getString( "m_ShortName" );
 			query = "SELECT rep_Spell.m_ID, rep_Spell.m_name_lang, rep_Spell.m_nameSubtext_lang, rep_Spell.m_description_lang, rep_Spell.m_auraDescription_lang FROM rep_Spell, dbc_PvpTalent WHERE rep_Spell.m_ID = dbc_PvpTalent.m_spellID AND dbc_PvpTalent.m_classID = ";
 			query.append( _itoa( class_id, buf, 10 ) );
 			query.append( " AND dbc_PvpTalent.m_specID = 0" );
@@ -590,9 +631,9 @@ void get_build_tooltips( Connection *con, build_t build, build_tt_t& tt ) {
 			while (res_pvptalent->next()) {
 				int spell_id = res_pvptalent->getInt( "m_ID" );
 				spell_tt_t spell = query_spell( res_pvptalent, spell_id );
-				tt.c[class_id - 1].pvptalents.push_back( spell );
+				c.pvptalents.push_back( spell );
 			}
-			std::sort( tt.c[class_id - 1].pvptalents.begin(), tt.c[class_id - 1].pvptalents.end() );
+			std::sort( c.pvptalents.begin(), c.pvptalents.end() );
 			query = "SELECT rep_Spell.m_ID, rep_Spell.m_name_lang, rep_Spell.m_nameSubtext_lang, rep_Spell.m_description_lang, rep_Spell.m_auraDescription_lang FROM rep_Spell, dbc_Talent WHERE rep_Spell.m_ID = dbc_Talent.m_spellID AND dbc_Talent.m_classID = ";
 			query.append( _itoa( class_id, buf, 10 ) );
 			query.append( " AND dbc_Talent.m_SpecID = 0" );
@@ -601,19 +642,19 @@ void get_build_tooltips( Connection *con, build_t build, build_tt_t& tt ) {
 			while (res_talent->next()) {
 				int spell_id = res_talent->getInt( "m_ID" );
 				spell_tt_t spell = query_spell( res_talent, spell_id );
-				tt.c[class_id - 1].talents.push_back( spell );
+				c.talents.push_back( spell );
 			}
-			std::sort( tt.c[class_id - 1].talents.begin(), tt.c[class_id - 1].talents.end() );
-			query = "SELECT rep_Spell.m_ID, rep_Spell.m_name_lang, rep_Spell.m_nameSubtext_lang, rep_Spell.m_description_lang, rep_Spell.m_auraDescription_lang FROM rep_Spell, dbc_SkillLineAbility WHERE rep_Spell.m_ID = dbc_SkillLineAbility.m_spellID AND dbc_SkillLineAbility.m_reqChrClasses = ";
+			std::sort( c.talents.begin(), c.talents.end() );
+			query = "SELECT rep_Spell.m_ID, rep_Spell.m_name_lang, rep_Spell.m_nameSubtext_lang, rep_Spell.m_description_lang, rep_Spell.m_auraDescription_lang FROM rep_Spell, dbc_SkillLineAbility WHERE rep_Spell.m_ID = dbc_SkillLineAbility.m_spellID AND dbc_SkillLineAbility.field10 = 2 AND dbc_SkillLineAbility.m_reqChrClasses = ";
 			query.append( _itoa( class_mask, buf, 10 ) );
 			stmt = con->createStatement(); std::cout << query << std::endl;
 			ResultSet *res_ability = stmt->executeQuery( query );
 			while (res_ability->next()) {
 				int spell_id = res_ability->getInt( "m_ID" );
 				spell_tt_t spell = query_spell( res_ability, spell_id );
-				tt.c[class_id - 1].spells.push_back( spell );
+				c.spells.push_back( spell );
 			}
-			std::sort( tt.c[class_id - 1].spells.begin(), tt.c[class_id - 1].spells.end() );
+			std::sort( c.spells.begin(), c.spells.end() );
 			query = "SELECT m_ID, m_classname1 FROM dbc_ChrSpecialization WHERE m_classID = ";
 			query.append( _itoa( class_id, buf, 10 ) );
 			stmt = con->createStatement(); std::cout << query << std::endl;
@@ -654,10 +695,12 @@ void get_build_tooltips( Connection *con, build_t build, build_tt_t& tt ) {
 					spec.spells.push_back( spell );
 				}
 				std::sort( spec.spells.begin(), spec.spells.end() );
-				tt.c[class_id - 1].specs.push_back( spec );
+				c.specs.push_back( spec );
 			}
-			std::sort( tt.c[class_id - 1].specs.begin(), tt.c[class_id - 1].specs.end() );
+			std::sort( c.specs.begin(), c.specs.end() );
+			tt.c.push_back( c );
 		}
+		std::sort( tt.c.begin(), tt.c.end() );
 	} catch (SQLException &e) {
 		std::cout << "ERROR: SQLException in " << __FILE__;
 		std::cout << " (" << __func__ << ") on line " << __LINE__ << std::endl;
@@ -729,30 +772,30 @@ int main( int argc, char** argv ) {
 					i++;
 					j++;
 				} else if (*i < *j) {
-					std::string d( "[del][color=red]" );
+					std::string d( u8"移除技能[del][color=red]" );
 					d.append( i->to_str() );
 					d.append( "[/color][/del]" );
 					vdiff.push_back( d );
 					i++;
 				} else if (*j < *i) {
-					std::string d( "[color=green]" );
+					std::string d( u8"新技能[color=green]" );
 					d.append( i->to_str() );
 					d.append( "[/color]" );
 					vdiff.push_back( d );
 					j++;
 				} else {
-					vdiff.push_back( diff( i->to_str(), j->to_str() ) );
+					vdiff.push_back( *i ^ *j );
 					i++;
 					j++;
 				}
 			} else if (i != vold.end()) {
-				std::string d( "[del][color=red]" );
+				std::string d( u8"移除技能[del][color=red]" );
 				d.append( i->to_str() );
 				d.append( "[/color][/del]" );
 				vdiff.push_back( d );
 				i++;
 			} else {
-				std::string d( "[color=green]" );
+				std::string d( u8"新技能[color=green]" );
 				d.append( j->to_str() );
 				d.append( "[/color]" );
 				vdiff.push_back( d );
