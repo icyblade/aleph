@@ -385,14 +385,17 @@ std::string diff( std::string sold, std::string snew ) {
 	auto newtocmplst = code_to_zhch( newwclst );
 
 	auto result = lcqcmp( oldtocmplst, newtocmplst );
+	int score = 0;
 	for (auto i = result.begin(); i != result.end(); i++) {
 		std::string begin, end;
 		switch (i->first) {
 		case OP_INS:
+			score++;
 			begin = "[color=green]";
 			end = "[/color]";
 			break;
 		case OP_DEL:
+			score++;
 			begin = "[del][color=red]";
 			end = "[/color][/del]";
 			break;
@@ -410,6 +413,15 @@ std::string diff( std::string sold, std::string snew ) {
 		out.append( begin );
 		out.append( i->second );
 		out.append( end );
+	}
+	if (score * 10 >= result.size() * 8) {
+		out.clear();
+		out.append("[del][color=red]");
+		out.append(sold);
+		out.append("\r\n[/color][/del]");
+		out.append("[color=green]");
+		out.append(snew);
+		out.append("[/color]");
 	}
 	return out;
 }
@@ -462,23 +474,13 @@ std::string empty_line(std::string in) {
 	for (auto i = in.begin(); i != in.end(); i++) {
 		switch (state) {
 		case 0:
-			if (*i == '\n' || *i == '\r') state = 1;
-			else if (*i == '<') state = 2;
+			if (*i == '<') state = 2;
 			else out.push_back( *i );
-			break;
-		case 1:
-			if (*i == '\n' || *i == '\r') state = 1;
-			else{
-				state = 0;
-				out.push_back( '\r' );
-				out.push_back( '\n' );
-				i--;
-			}
 			break;
 		case 2:
 			if (*i == 'i' ) state = 100;
 			else if (*i == 's') state = 100;
-			else if (*i == 'b') state = 100;
+			else if (*i == 'b') state = 200;
 			else if (*i == '/') state = 3;
 			else {
 				out.push_back( '<' );
@@ -500,6 +502,30 @@ std::string empty_line(std::string in) {
 		case 100: 
 			if (*i == '>') state = 0;
 			break;
+		case 200: 
+			if (*i == '>') {
+				out.push_back( '\r' );
+				out.push_back( '\n' );
+				state = 0;
+			}
+			break;
+		}
+	}
+	in = out;
+	out.clear();
+	state = 0;
+	for (auto i = in.begin(); i != in.end(); i++) {
+		if (state) {
+			if (*i == '\n' || *i == '\r') continue;
+			else {
+				state = 0;
+				out.push_back( '\r' );
+				out.push_back( '\n' );
+				out.push_back( *i );
+			}
+		} else {
+			if (*i == '\n' || *i == '\r') state = 1;
+			else out.push_back( *i );
 		}
 
 	}
