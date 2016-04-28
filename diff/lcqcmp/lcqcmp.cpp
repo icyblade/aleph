@@ -805,7 +805,7 @@ int main( int argc, char** argv ) {
 					i++;
 				} else if (*j < *i) {
 					std::string d( u8"ÐÂ¼¼ÄÜ[color=green]" );
-					d.append( i->to_str() );
+					d.append( j->to_str() );
 					d.append( "[/color]" );
 					vdiff.push_back( d );
 					j++;
