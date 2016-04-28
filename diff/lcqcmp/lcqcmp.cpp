@@ -671,7 +671,7 @@ void get_build_tooltips( Connection *con, build_t build, build_tt_t& tt ) {
 				c.talents.push_back( spell );
 			}
 			std::sort( c.talents.begin(), c.talents.end() );
-			query = "SELECT rep_Spell.m_ID, rep_Spell.m_name_lang, rep_Spell.m_nameSubtext_lang, rep_Spell.m_description_lang, rep_Spell.m_auraDescription_lang FROM rep_Spell, dbc_SkillLineAbility WHERE rep_Spell.m_ID = dbc_SkillLineAbility.m_spellID AND dbc_SkillLineAbility.field10 = 2 AND dbc_SkillLineAbility.m_reqChrClasses = ";
+			query = "SELECT rep_Spell.m_ID, rep_Spell.m_name_lang, rep_Spell.m_nameSubtext_lang, rep_Spell.m_description_lang, rep_Spell.m_auraDescription_lang FROM rep_Spell, dbc_SkillLineAbility WHERE rep_Spell.m_ID = dbc_SkillLineAbility.m_spellID AND dbc_SkillLineAbility.m_acquireMethod = 2 AND dbc_SkillLineAbility.m_reqChrClasses = ";
 			query.append( _itoa( class_mask, buf, 10 ) );
 			stmt = con->createStatement(); std::cout << query << std::endl;
 			ResultSet *res_ability = stmt->executeQuery( query );
