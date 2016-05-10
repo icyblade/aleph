@@ -96,8 +96,11 @@ std::vector<std::string> read_split( std::string s ) {
 	std::stringstream ss( s );
 	std::string item = "";
 	int gc;
+    int decimal = 0;
 	while (EOF != ( gc = ss.get() )) {
-		if (( gc >= 'a' && gc <= 'z' ) || ( gc >= 'A' && gc <= 'Z' ) || ( gc >= '0' && gc <= '9' )) {
+		if (( gc >= 'a' && gc <= 'z' ) || ( gc >= 'A' && gc <= 'Z' ) || ( gc >= '0' && gc <= '9' ) || (decimal && gc == '.' && isdigit(ss.get()))) {
+            decimal = (gc >= '0' && gc <= '9');
+            if (gc == '.') ss.unget();
 			item.push_back( gc );
 		} else {
 			if (!item.empty()) elems.push_back( item );
