@@ -12,6 +12,6 @@
 
 * lcqcmp connect to the db server, find the latest 2 db, and do diff compare.
 
-  command-line: `lcqcmp db_user db_password`
+  command-line: `lcqcmp db_user db_password output`
 
-  output bbcode for NGA `diff.txt` encoded in utf-8 (without BOM).
+  output bbcode for NGA via stdout, encoded in utf-8 (without BOM). if `output` parameter is given, redirect output into file.

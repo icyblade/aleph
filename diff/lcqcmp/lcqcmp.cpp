@@ -418,7 +418,7 @@ std::string diff( std::string sold, std::string snew ) {
 		out.clear();
 		out.append("[del][color=red]");
 		out.append(sold);
-		out.append("\r\n[/color][/del]");
+		out.append("\n[/color][/del]");
 		out.append("[color=green]");
 		out.append(snew);
 		out.append("[/color]");
@@ -519,7 +519,6 @@ std::string empty_line(std::string in) {
 			if (*i == '\n' || *i == '\r') continue;
 			else {
 				state = 0;
-				out.push_back( '\r' );
 				out.push_back( '\n' );
 				out.push_back( *i );
 			}
@@ -553,7 +552,7 @@ struct spell_tt_t {
 		}
 		str.append( u8"：" );
 		str.append( empty_line(tooltips) );
-		str.append( "\r\n" );
+		str.append( "\n" );
 		return str;
 	}
 	bool operator==( const spell_tt_t& rhs ) const {
@@ -591,7 +590,7 @@ struct spell_tt_t {
 		}
 		d += u8"：";
 		d += diff( empty_line(tooltips), empty_line(rhs.tooltips) );
-		d += "\r\n";
+		d += "\n";
 		return d;
 	}
 };
@@ -628,7 +627,7 @@ void get_build_tooltips( Connection *con, build_t build, build_tt_t& tt ) {
 	try {
 		con->setSchema( build.toStr() + "_zhCN" );
 		Statement *stmt;
-		stmt = con->createStatement(); std::cout << "SELECT m_ID, m_className, m_ShortName FROM dbc_ChrClasses" << std::endl;
+		stmt = con->createStatement(); std::cerr << "SELECT m_ID, m_className, m_ShortName FROM dbc_ChrClasses" << std::endl;
 		ResultSet *res_class = stmt->executeQuery( "SELECT m_ID, m_className, m_ShortName FROM dbc_ChrClasses" );
 
 		auto query_spell = []( ResultSet* res, int id ) {
@@ -637,7 +636,7 @@ void get_build_tooltips( Connection *con, build_t build, build_tt_t& tt ) {
 			spell.name = res->getString( "m_name_lang" );
 			spell.subname = res->getString( "m_nameSubtext_lang" );
 			spell.tooltips = res->getString( "m_description_lang" );
-			//if (spell.tooltips.length() > 1) spell.tooltips.append( "\r\n" );
+			//if (spell.tooltips.length() > 1) spell.tooltips.append( "\n" );
 			//spell.tooltips.append( res->getString( "m_auraDescription_lang" ) );
 			return spell;
 		};
@@ -652,7 +651,7 @@ void get_build_tooltips( Connection *con, build_t build, build_tt_t& tt ) {
 			query = "SELECT rep_Spell.m_ID, rep_Spell.m_name_lang, rep_Spell.m_nameSubtext_lang, rep_Spell.m_description_lang, rep_Spell.m_auraDescription_lang FROM rep_Spell, dbc_PvpTalent WHERE rep_Spell.m_ID = dbc_PvpTalent.m_spellID AND dbc_PvpTalent.m_classID = ";
 			query.append( _itoa( class_id, buf, 10 ) );
 			query.append( " AND dbc_PvpTalent.m_specID = 0" );
-			stmt = con->createStatement(); std::cout << query << std::endl;
+			stmt = con->createStatement(); std::cerr << query << std::endl;
 			ResultSet *res_pvptalent = stmt->executeQuery( query );
 			while (res_pvptalent->next()) {
 				int spell_id = res_pvptalent->getInt( "m_ID" );
@@ -663,7 +662,7 @@ void get_build_tooltips( Connection *con, build_t build, build_tt_t& tt ) {
 			query = "SELECT rep_Spell.m_ID, rep_Spell.m_name_lang, rep_Spell.m_nameSubtext_lang, rep_Spell.m_description_lang, rep_Spell.m_auraDescription_lang FROM rep_Spell, dbc_Talent WHERE rep_Spell.m_ID = dbc_Talent.m_spellID AND dbc_Talent.m_classID = ";
 			query.append( _itoa( class_id, buf, 10 ) );
 			query.append( " AND dbc_Talent.m_SpecID = 0" );
-			stmt = con->createStatement(); std::cout << query << std::endl;
+			stmt = con->createStatement(); std::cerr << query << std::endl;
 			ResultSet *res_talent = stmt->executeQuery( query );
 			while (res_talent->next()) {
 				int spell_id = res_talent->getInt( "m_ID" );
@@ -673,7 +672,7 @@ void get_build_tooltips( Connection *con, build_t build, build_tt_t& tt ) {
 			std::sort( c.talents.begin(), c.talents.end() );
 			query = "SELECT rep_Spell.m_ID, rep_Spell.m_name_lang, rep_Spell.m_nameSubtext_lang, rep_Spell.m_description_lang, rep_Spell.m_auraDescription_lang FROM rep_Spell, dbc_SkillLineAbility WHERE rep_Spell.m_ID = dbc_SkillLineAbility.m_spellID AND dbc_SkillLineAbility.m_acquireMethod = 2 AND dbc_SkillLineAbility.m_reqChrClasses = ";
 			query.append( _itoa( class_mask, buf, 10 ) );
-			stmt = con->createStatement(); std::cout << query << std::endl;
+			stmt = con->createStatement(); std::cerr << query << std::endl;
 			ResultSet *res_ability = stmt->executeQuery( query );
 			while (res_ability->next()) {
 				int spell_id = res_ability->getInt( "m_ID" );
@@ -683,7 +682,7 @@ void get_build_tooltips( Connection *con, build_t build, build_tt_t& tt ) {
 			std::sort( c.spells.begin(), c.spells.end() );
 			query = "SELECT m_ID, m_classname1 FROM dbc_ChrSpecialization WHERE m_classID = ";
 			query.append( _itoa( class_id, buf, 10 ) );
-			stmt = con->createStatement(); std::cout << query << std::endl;
+			stmt = con->createStatement(); std::cerr << query << std::endl;
 			ResultSet *res_spec = stmt->executeQuery( query );
 			while (res_spec->next()) {
 				int spec_id = res_spec->getInt( "m_ID" );
@@ -693,7 +692,7 @@ void get_build_tooltips( Connection *con, build_t build, build_tt_t& tt ) {
 				spec.spec_name = spec_name;
 				query = "SELECT rep_Spell.m_ID, rep_Spell.m_name_lang, rep_Spell.m_nameSubtext_lang, rep_Spell.m_description_lang, rep_Spell.m_auraDescription_lang FROM rep_Spell, dbc_PvpTalent WHERE rep_Spell.m_ID = dbc_PvpTalent.m_spellID AND m_specID = ";
 				query.append( _itoa( spec_id, buf, 10 ) );
-				stmt = con->createStatement(); std::cout << query << std::endl;
+				stmt = con->createStatement(); std::cerr << query << std::endl;
 				ResultSet *res_pvptalent = stmt->executeQuery( query );
 				while (res_pvptalent->next()) {
 					int spell_id = res_pvptalent->getInt( "m_ID" );
@@ -703,7 +702,7 @@ void get_build_tooltips( Connection *con, build_t build, build_tt_t& tt ) {
 				std::sort( spec.pvptalents.begin(), spec.pvptalents.end() );
 				query = "SELECT rep_Spell.m_ID, rep_Spell.m_name_lang, rep_Spell.m_nameSubtext_lang, rep_Spell.m_description_lang, rep_Spell.m_auraDescription_lang FROM rep_Spell, dbc_Talent WHERE rep_Spell.m_ID = dbc_Talent.m_spellID AND m_SpecID = ";
 				query.append( _itoa( spec_id, buf, 10 ) );
-				stmt = con->createStatement(); std::cout << query << std::endl;
+				stmt = con->createStatement(); std::cerr << query << std::endl;
 				ResultSet *res_talent = stmt->executeQuery( query );
 				while (res_talent->next()) {
 					int spell_id = res_talent->getInt( "m_ID" );
@@ -713,7 +712,7 @@ void get_build_tooltips( Connection *con, build_t build, build_tt_t& tt ) {
 				std::sort( spec.talents.begin(), spec.talents.end() );
 				query = "SELECT rep_Spell.m_ID, rep_Spell.m_name_lang, rep_Spell.m_nameSubtext_lang, rep_Spell.m_description_lang, rep_Spell.m_auraDescription_lang FROM rep_Spell, dbc_SpecializationSpells WHERE rep_Spell.m_ID = dbc_SpecializationSpells.m_spellID AND m_specID = ";
 				query.append( _itoa( spec_id, buf, 10 ) );
-				stmt = con->createStatement(); std::cout << query << std::endl;
+				stmt = con->createStatement(); std::cerr << query << std::endl;
 				ResultSet *res_spells = stmt->executeQuery( query );
 				while (res_spells->next()) {
 					int spell_id = res_spells->getInt( "m_ID" );
@@ -728,38 +727,38 @@ void get_build_tooltips( Connection *con, build_t build, build_tt_t& tt ) {
 		}
 		std::sort( tt.c.begin(), tt.c.end() );
 	} catch (SQLException &e) {
-		std::cout << "ERROR: SQLException in " << __FILE__;
-		std::cout << " (" << __func__ << ") on line " << __LINE__ << std::endl;
-		std::cout << "ERROR: " << e.what();
-		std::cout << " (MySQL error code: " << e.getErrorCode();
-		std::cout << ", SQLState: " << e.getSQLState() << ")" << std::endl;
+		std::cerr << "ERROR: SQLException in " << __FILE__;
+		std::cerr << " (" << __func__ << ") on line " << __LINE__ << std::endl;
+		std::cerr << "ERROR: " << e.what();
+		std::cerr << " (MySQL error code: " << e.getErrorCode();
+		std::cerr << ", SQLState: " << e.getSQLState() << ")" << std::endl;
 
 		if (e.getErrorCode() == 1047) {
 			/*
 			Error: 1047 SQLSTATE: 08S01 (ER_UNKNOWN_COM_ERROR)
 			Message: Unknown command
 			*/
-			std::cout << "\nYour server does not seem to support Prepared Statements at all. ";
-			std::cout << "Perhaps MYSQL < 4.1?" << std::endl;
+			std::cerr << "\nYour server does not seem to support Prepared Statements at all. ";
+			std::cerr << "Perhaps MYSQL < 4.1?" << std::endl;
 		}
 
 		exit( EXIT_FAILURE );
 	} catch (std::runtime_error &e) {
 
-		std::cout << "ERROR: runtime_error in " << __FILE__;
-		std::cout << " (" << __func__ << ") on line " << __LINE__ << std::endl;
-		std::cout << "ERROR: " << e.what() << std::endl;
+		std::cerr << "ERROR: runtime_error in " << __FILE__;
+		std::cerr << " (" << __func__ << ") on line " << __LINE__ << std::endl;
+		std::cerr << "ERROR: " << e.what() << std::endl;
 
 		exit( EXIT_FAILURE );
 	}
 }
 
 int main( int argc, char** argv ) {
-	FILE* f = fopen( "diff.txt", "wb" );
 	read_dict();
 
 	std::string user( argc > 1 ? argv[1] : "root" );
 	std::string password( argc > 2 ? argv[2] : "root" );
+	std::string outpath( argc > 3 ? argv[3] : "" );
 
 	Driver *driver;
 	Connection *con;
@@ -767,7 +766,7 @@ int main( int argc, char** argv ) {
 	driver = get_driver_instance();
 	con = driver->connect( "123.206.68.214", user.c_str(), password.c_str() );
 	con->setAutoCommit( 0 );
-	std::cout << "\nDatabase connection\'s autocommit mode = " << con->getAutoCommit() << std::endl;
+	std::cerr << "\nDatabase connection\'s autocommit mode = " << con->getAutoCommit() << std::endl;
 
 	DatabaseMetaData *dbcon_meta = con->getMetaData();
 	std::auto_ptr < ResultSet > rs( dbcon_meta->getSchemas() );
@@ -784,9 +783,12 @@ int main( int argc, char** argv ) {
 	build_t new_build = zhcn_build_list.rbegin()[0];
 	build_t old_build = zhcn_build_list.rbegin()[1];
 	build_tt_t old_tt, new_tt;
+	FILE* f = fopen( outpath.c_str(), "wb" );
+	if ( !f ) f = stdout;
 
 	get_build_tooltips( con, old_build, old_tt );
 	get_build_tooltips( con, new_build, new_tt );
+	fprintf( f, "%s - %s " u8"技能文本改动\n", old_build.toStr().c_str(), new_build.toStr().c_str() );
 
 	auto vector_diff = []( std::vector<spell_tt_t>& vold, std::vector<spell_tt_t>& vnew, std::vector<std::string>& vdiff ) {
 		vdiff.clear();
@@ -915,6 +917,7 @@ int main( int argc, char** argv ) {
 			fprintf( f, "%s", class_tail.c_str() );
 		}
 	}
-	fclose( f );
+	// fclose( f );
+	return EXIT_SUCCESS;
 }
 
