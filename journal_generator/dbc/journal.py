@@ -33,8 +33,8 @@ class Journal:
                 on a.m_ID=b.field1 \
                 where b.field0=%s' % expansion_id
         else:
-            sql = 'select a.m_ID as instance_id, a.field4 as instance_name, \
-                a.field5 as instance_description from dbc_JournalInstance'
+            sql = 'select.m_ID as instance_id, field4 as instance_name, \
+                field5 as instance_description from dbc_JournalInstance'
         self.logger.debug(sql)
         self.cur.execute(sql)
         return self.cur.fetchall()
