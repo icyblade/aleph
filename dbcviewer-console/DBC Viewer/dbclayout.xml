@@ -1,5 +1,413 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <DBFilesClient>
-  
+  <ChrClasses build="21491">
+    <field type="string" name="m_petType" />
+    <field type="string" name="m_className" />
+    <field type="string" name="field2" />
+    <field type="string" name="field3" />
+    <field type="string" name="m_ShortName" />
+    <field type="uint" name="field5" />
+    <field type="uint" name="field6" />
+    <field type="uint" name="field7" />
+    <field type="ushort" name="field8" />
+    <field type="ushort" name="field9" />
+    <field type="ushort" name="field10" />
+    <field type="byte" name="field11" />
+    <field type="byte" name="field12" />
+    <field type="byte" name="field13" />
+    <field type="byte" name="field14" />
+    <field type="byte" name="field15" />
+    <field type="byte" name="field16" />
+    <field type="byte" name="field17" />
+    <index>
+      <primary>m_ID</primary>
+    </index>
+    <field type="byte" name="m_ID" />
+  </ChrClasses>
+  <ChrSpecialization build="21491">
+    <field type="uint" name="m_fileID" />
+    <field type="uint" name="m_unk0" />
+    <field type="string" name="m_classname1" />
+    <field type="string" name="m_classname2" />
+    <field type="string" name="m_description" />
+    <field type="string" name="m_icon" />
+    <field type="ushort" name="field6" />
+    <field type="byte" name="m_classID" />
+    <field type="byte" name="m_specIndex" />
+    <field type="byte" name="field9" />
+    <field type="byte" name="m_Role_flags" />
+    <field type="byte" name="field11" />
+    <index>
+      <primary>m_ID</primary>
+    </index>
+    <field type="ushort" name="m_ID" />
+    <field type="byte" name="m_unk" />
+    <field type="ushort" name="field14" />
+  </ChrSpecialization>
+
+  <Creature build="21491">
+    <index>
+      <primary>m_ID</primary>
+    </index>
+    <field type="index" name="m_ID" />
+    <field type="uint" name="field0_1" />
+    <field type="uint" name="field0_2" />
+    <field type="uint" name="field0_3" />
+    <field type="uint" name="field3" />
+    <index>
+      <NonUniqueIndex>m_displayID_1</NonUniqueIndex>
+    </index>
+    <field type="int" name="m_displayID_1" />
+    <field type="int" name="m_displayID_2" />
+    <field type="int" name="m_displayID_3" />
+    <field type="int" name="m_displayID_4" />
+    <field type="float" name="field8_1" />
+    <field type="float" name="field8_2" />
+    <field type="float" name="field8_3" />
+    <field type="float" name="field8_4" />
+    <field type="string" name="m_name" />
+    <field type="string" name="m_name2" />
+    <field type="string" name="m_title" />
+    <field type="uint" name="field15" />
+    <field type="byte" name="field16" />
+    <field type="byte" name="field17" />
+    <field type="byte" name="field18" />
+    <field type="byte" name="field19" />
+  </Creature>
+
+  <Difficulty build="21531">
+    <index>
+      <primary>m_ID</primary>
+    </index>
+    <field type="index" name="m_ID" />
+    <field type="string" name="field0" />
+    <field type="byte" name="field1" />
+    <field type="byte" name="field2" />
+    <field type="byte" name="field3" />
+    <field type="byte" name="field4" />
+    <field type="byte" name="field5" />
+    <field type="byte" name="field6" />
+    <field type="byte" name="field7" />
+    <field type="byte" name="field8" />
+    <field type="byte" name="field9" />
+    <field type="byte" name="field10" />
+    <field type="byte" name="field11" />
+    <field type="byte" name="field12" />
+  </Difficulty>
+  <JournalEncounter build="21531">
+    <index>
+      <primary>m_ID</primary>
+    </index>
+    <field type="index" name="m_ID" />
+    <field type="float" name="field0_1" />
+    <field type="float" name="field0_2" />
+    <field type="string" name="m_name_lang" />
+    <field type="string" name="m_description_lang" />
+    <field type="ushort" name="field4" />
+    <field type="ushort" name="field5" />
+    <field type="ushort" name="field6" />
+    <field type="ushort" name="m_journalInstanceID" />
+    <field type="byte" name="field8" />
+    <field type="byte" name="field9" />
+    <field type="byte" name="m_orderIndex" />
+  </JournalEncounter>
+  <JournalEncounterSection build="21531">
+    <index>
+      <primary>m_ID</primary>
+    </index>
+    <field type="index" name="m_ID" />
+    <field type="string" name="m_title_lang" />
+    <field type="string" name="m_bodyText_lang" />
+    <field type="int" name="m_iconCreatureDisplayInfoID" />
+    <field type="int" name="m_spellID" />
+    <field type="int" name="m_iconFileDataID" />
+    <field type="ushort" name="m_journalEncounterID" />
+    <field type="ushort" name="m_nextSiblingSectionID" />
+    <field type="ushort" name="m_firstChildSectionID" />
+    <field type="ushort" name="m_parentSectionID" />
+    <field type="ushort" name="m_flags" />
+    <field type="ushort" name="m_iconFlags" />
+    <field type="byte" name="m_orderIndex" />
+    <field type="byte" name="m_type" />
+    <field type="byte" name="m_difficultyMask" />
+  </JournalEncounterSection>
+  <JournalInstance build="21531">
+    <field type="int" name="field0" />
+    <field type="int" name="field1" />
+    <field type="int" name="field2" />
+    <field type="int" name="field3" />
+    <field type="string" name="m_name_lang" />
+    <field type="string" name="m_description_lang" />
+    <field type="ushort" name="field6" />
+    <field type="ushort" name="field7" />
+    <field type="byte" name="field8" />
+    <field type="byte" name="field9" />
+    <index>
+      <primary>m_ID</primary>
+    </index>
+    <field type="ushort" name="m_ID" />
+  </JournalInstance>
+  <JournalTier build="21531">
+    <index>
+      <primary>m_ID</primary>
+    </index>
+    <field type="index" name="m_ID" />
+    <field type="string" name="m_name_lang" />
+  </JournalTier>
+  <JournalTierXInstance build="21531">
+    <index>
+      <primary>m_ID</primary>
+    </index>
+    <field type="index" name="m_ID" />
+    <field type="ushort" name="m_journalTierID" />
+    <field type="ushort" name="m_journalInstanceID" />
+  </JournalTierXInstance>
+  <KeystoneAffix build="21531">
+    <index>
+      <primary>m_ID</primary>
+    </index>
+    <field type="index" name="m_ID" />
+    <field type="string" name="field0" />
+    <field type="string" name="field1" />
+    <field type="int" name="field2" />
+  </KeystoneAffix>
+  <SkillLineAbility build="21531">
+    <index>
+      <primary>m_ID</primary>
+    </index>
+    <field type="index" name="m_ID" />
+    <index>
+      <NonUniqueIndex>m_spellID</NonUniqueIndex>
+    </index>
+    <field type="int" name="m_spellID" />
+    <field type="uint" name="m_reqChrRace" />
+    <index>
+      <NonUniqueIndex>m_supercedesSpell</NonUniqueIndex>
+    </index>
+    <field type="int" name="m_supercedesSpell" />
+    <field type="int" name="field3" />
+    <index>
+      <NonUniqueIndex>m_skillLineID</NonUniqueIndex>
+    </index>
+    <field type="ushort" name="m_skillLineID" />
+    <field type="ushort" name="m_reqSkillPoints" />
+    <field type="ushort" name="m_grayRank" />
+    <field type="ushort" name="m_greenRank" />
+    <field type="ushort" name="field8" />
+    <field type="ushort" name="m_tradeSkillCategoryID" />
+    <field type="byte" name="m_acquireMethod" />
+    <field type="byte" name="m_numSkillUps" />
+    <field type="ushort" name="m_reqChrClasses" />
+  </SkillLineAbility>
+  <PvpTalent build="21491">
+    <index>
+      <primary>m_ID</primary>
+    </index>
+    <field type="index" name="m_ID" />
+    <index>
+      <NonUniqueIndex>m_spellID</NonUniqueIndex>
+    </index>
+    <field type="int" name="m_spellID" />
+    <field type="int" name="m_extraSpellID" />
+    <field type="int" name="field2" />
+    <field type="byte" name="m_tierID" />
+    <field type="byte" name="m_columnIndex" />
+    <field type="byte" name="field5" />
+    <field type="byte" name="m_classID" />
+    <field type="ushort" name="m_specID" />
+    <field type="sbyte" name="m_flags" />
+  </PvpTalent>
+  <SkillLineAbility build="21531">
+    <index>
+      <primary>m_ID</primary>
+    </index>
+    <field type="index" name="m_ID" />
+    <index>
+      <NonUniqueIndex>m_spellID</NonUniqueIndex>
+    </index>
+    <field type="int" name="m_spellID" />
+    <field type="uint" name="m_reqChrRace" />
+    <index>
+      <NonUniqueIndex>m_supercedesSpell</NonUniqueIndex>
+    </index>
+    <field type="int" name="m_supercedesSpell" />
+    <field type="int" name="field3" />
+    <index>
+      <NonUniqueIndex>m_skillLineID</NonUniqueIndex>
+    </index>
+    <field type="ushort" name="m_skillLineID" />
+    <field type="ushort" name="m_reqSkillPoints" />
+    <field type="ushort" name="m_grayRank" />
+    <field type="ushort" name="m_greenRank" />
+    <field type="ushort" name="field8" />
+    <field type="ushort" name="m_tradeSkillCategoryID" />
+    <field type="byte" name="m_acquireMethod" />
+    <field type="byte" name="m_numSkillUps" />
+    <field type="ushort" name="m_reqChrClasses" />
+  </SkillLineAbility>
+  <SpellEffect build="21570">
+    <field type="float" name="m_effectAmplitude" />
+    <field type="float" name="m_effectBonusCoefficient" />
+    <field type="float" name="m_effectChainAmplitude" />
+    <field type="float" name="m_effectPointsPerResource" />
+    <field type="float" name="m_effectRealPointsPerLevel" />
+    <field type="int" name="m_effectSpellClassMask_1" />
+    <field type="int" name="m_effectSpellClassMask_2" />
+    <field type="int" name="m_effectSpellClassMask_3" />
+    <field type="int" name="m_effectSpellClassMask_4" />
+    <field type="float" name="m_effectPos_facing" />
+    <field type="float" name="m_bonusCoefficientFromAP" />
+    <index>
+      <primary>m_ID</primary>
+    </index>
+    <field type="int3" name="m_ID" />
+    <field type="byte" name="m_difficultyID" />
+    <index>
+      <NonUniqueIndex>m_effectType</NonUniqueIndex>
+    </index>
+    <field type="byte" name="m_effectType" />
+    <field type="ushort" name="m_effectAuraType" />
+    <field type="int" name="m_effectAuraPeriod" />
+    <field type="int" name="m_effectBasePoints" />
+    <field type="ushort" name="m_effectChainTargets" />
+    <field type="int" name="m_effectBonusPoints" />
+    <field type="int3" name="m_effectCreateItem" />
+    <field type="byte" name="m_effectMechanic" />
+    <field type="int" name="m_implicitTarget_1" />
+    <field type="int" name="m_implicitTarget_2" />
+    <field type="byte" name="m_radiusIndex1" />
+    <field type="byte" name="m_radiusIndex2" />
+    <field type="int3" name="m_effectTriggerSpell" />
+    <field type="byte" name="m_effectMiscValue_1" />
+    <field type="byte" name="m_effectMiscValue_2" />
+    <index>
+      <NonUniqueIndex>m_spellID</NonUniqueIndex>
+    </index>
+    <field type="int3" name="m_spellID" />
+    <index>
+      <NonUniqueIndex>m_effectIndex</NonUniqueIndex>
+    </index>
+    <field type="byte" name="m_effectIndex" />
+    <field type="int3" name="field30" />
+  </SpellEffect>
+
+  <SpecializationSpells build="21491">
+    <index>
+      <NonUniqueIndex>m_spellID</NonUniqueIndex>
+    </index>
+    <field type="uint" name="m_spellID" />
+    <field type="uint" name="field1" />
+    <field type="uint" name="field2" />
+    <field type="ushort" name="m_specID" />
+    <field type="byte" name="field4" />
+    <index>
+      <primary>m_ID</primary>
+    </index>
+    <field type="ushort" name="m_ID" />
+  </SpecializationSpells>
+
+  <Spell build="21491">
+    <field type="string" name="m_name_lang" />
+    <field type="string" name="m_nameSubtext_lang" />
+    <field type="string" name="m_description_lang" />
+    <field type="string" name="m_auraDescription_lang" />
+    <index>
+      <NonUniqueIndex>m_spellMisc</NonUniqueIndex>
+    </index>
+    <field type="uint" name="m_spellMisc" />
+    <index>
+      <primary>m_ID</primary>
+    </index>
+    <field type="int3" name="m_ID" />
+    <index>
+      <NonUniqueIndex>m_spellDescriptionVariableID</NonUniqueIndex>
+    </index>
+    <field type="ushort" name="m_spellDescriptionVariableID" />
+  </Spell>
+
+  <SpellDuration build="20810">
+    <index>
+      <primary>m_ID</primary>
+    </index>
+    <field type="index" name="m_ID" />
+    <field type="int" name="m_ms_base" />
+    <field type="int" name="newField3" />
+    <field type="int" name="newField4" />
+  </SpellDuration>
+
+  <SpellIcon build="20756">
+    <index>
+      <primary>m_ID</primary>
+    </index>
+    <field type="index" name="m_ID" />
+    <field type="string" name="m_Name" />
+  </SpellIcon>
+
+  <SpellMisc build="20756">
+    <index>
+      <primary>m_ID</primary>
+    </index>
+    <field type="index" name="m_ID" />
+    <field type="uint" name="m_attributes1" />
+    <field type="uint" name="m_attributes2" />
+    <field type="uint" name="m_attributes3" />
+    <field type="uint" name="m_attributes4" />
+    <field type="uint" name="m_attributes5" />
+    <field type="uint" name="m_attributes6" />
+    <field type="uint" name="m_attributes7" />
+    <field type="uint" name="m_attributes8" />
+    <field type="uint" name="m_attributes9" />
+    <field type="uint" name="m_attributes10" />
+    <field type="uint" name="m_attributes11" />
+    <field type="uint" name="m_attributes12" />
+    <field type="uint" name="m_attributes13" />
+    <field type="uint" name="m_attributes14" />
+    <field type="float" name="m_speed" />
+    <field type="float" name="field15" />
+    <field type="ushort" name="m_castingTimeIndex" />
+    <field type="ushort" name="m_durationIndex" />
+    <field type="ushort" name="m_rangeIndex" />
+    <index>
+      <NonUniqueIndex>m_spellIconID</NonUniqueIndex>
+    </index>
+    <field type="ushort" name="m_spellIconID" />
+    <index>
+      <NonUniqueIndex>m_activeIconID</NonUniqueIndex>
+    </index>
+    <field type="ushort" name="m_activeIconID" />
+    <field type="ushort" name="m_schoolMask" />
+  </SpellMisc>
+
+  <SpellRadius build="20810">
+    <index>
+      <primary>m_ID</primary>
+    </index>
+    <field type="index" name="m_ID" />
+    <field type="float" name="m_radius" />
+    <field type="float" name="m_unk" />
+    <field type="float" name="m_radiusPerLevel" />
+    <field type="float" name="m_radiusMax" />
+  </SpellRadius>
+
+  <Talent build="21108">
+    <index>
+      <primary>m_ID</primary>
+    </index>
+    <field type="index" name="m_ID" />
+    <index>
+      <NonUniqueIndex>m_spellID</NonUniqueIndex>
+    </index>
+    <field type="int" name="m_spellID" />
+    <field type="int" name="m_replacedSpellID" />
+    <field type="int" name="field10" />
+    <field type="short" name="m_SpecID" />
+    <field type="byte" name="m_tierID" />
+    <field type="byte" name="m_columnIndex" />
+    <field type="byte" name="m_flags" />
+    <field type="byte" name="unknown0" />
+    <field type="byte" name="unknown1" />
+    <field type="byte" name="m_classID" />
+  </Talent>
+
 </DBFilesClient>
