@@ -24,6 +24,32 @@
 #include <exception.h>
 #include <warning.h>
 
+#if defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ <= 8))
+#undef major
+#undef minor
+#endif
+#if defined(__GNUC__)
+char* _itoa( int value, char* result, int base ) {
+    if (base < 2 || base > 36) { *result = '\0'; return result; }
+    char* ptr = result, *ptr1 = result, tmp_char;
+    int tmp_value;
+    do {
+        tmp_value = value;
+        value /= base;
+        *ptr++ = "zyxwvutsrqponmlkjihgfedcba9876543210123456789abcdefghijklmnopqrstuvwxyz" [35 + (tmp_value - value * base)];
+    } while ( value );
+    if (tmp_value < 0) *ptr++ = '-';
+    *ptr-- = '\0';
+    while(ptr1 < ptr) {
+        tmp_char = *ptr;
+        *ptr--= *ptr1;
+        *ptr1++ = tmp_char;
+    }
+    return result;
+}
+#endif
+
+
 enum { OP_CPY, OP_INS, OP_DEL };
 
 std::vector<std::pair<int, std::string> > lcqcmp( std::vector<std::string> vold, std::vector<std::string> vnew ) {
