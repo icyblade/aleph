@@ -246,7 +246,7 @@ struct word_hash_t {
 std::unordered_map<word_t, int, word_hash_t> word2code;
 std::unordered_map<int, word_t> code2word;
 std::map<int, int> freq;
-std::vector<int> zhch_to_code( std::vector<std::string>& chlst ) {
+std::vector<int> zhch_to_code( std::vector<std::string> chlst ) {
 	std::vector<int> codelst;
 	for (auto i = chlst.begin(); i != chlst.end(); i++) {
 		if (ch2code.find( *i ) != ch2code.end()) {
