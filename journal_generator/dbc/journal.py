@@ -18,7 +18,7 @@ class Journal:
         rvalue: expansion_id, expansion_name
         """
         self.cur.execute(
-            'select m_ID as expansion_id, field0 as expansion_name from dbc_JournalTier'
+            'select m_ID as expansion_id, m_name_lang as expansion_name from dbc_JournalTier'
         )
         return self.cur.fetchall()
         
@@ -27,14 +27,14 @@ class Journal:
         rvalue: instance_id, instance_name, instance_description
         """
         if expansion_id:
-            sql = 'select a.m_ID as instance_id, a.field4 as instance_name, \
-                a.field5 as instance_description from dbc_JournalInstance a \
+            sql = 'select a.m_ID as instance_id, a.m_name_lang as instance_name, \
+                a.m_description_lang as instance_description from dbc_JournalInstance a \
                 left join dbc_JournalTierXInstance b \
-                on a.m_ID=b.field1 \
-                where b.field0=%s' % expansion_id
+                on a.m_ID=b.m_journalInstanceID \
+                where b.m_journalTierID=%s' % expansion_id
         else:
-            sql = 'select.m_ID as instance_id, field4 as instance_name, \
-                field5 as instance_description from dbc_JournalInstance'
+            sql = 'select.m_ID as instance_id, m_name_lang as instance_name, \
+                m_description_lang as instance_description from dbc_JournalInstance'
         self.logger.debug(sql)
         self.cur.execute(sql)
         return self.cur.fetchall()
@@ -44,11 +44,11 @@ class Journal:
         ravalue: boss_id, boss_name, boss_description
         """
         if instance_id:
-            sql = 'select m_ID as boss_id, field2 as boss_name, field3 boss_description \
-                from dbc_JournalEncounter where field7=%s order by field10' % instance_id
+            sql = 'select m_ID as boss_id, m_name_lang as boss_name, m_description_lang as boss_description \
+                from dbc_JournalEncounter where m_journalInstanceID=%s order by m_orderIndex' % instance_id
         else:
-            sql = 'select m_ID as boss_id, field2 as boss_name, field3 boss_description \
-                from dbc_JournalEncounter order by field10'
+            sql = 'select m_ID as boss_id, m_name_lang as boss_name, m_description_lang as boss_description \
+                from dbc_JournalEncounter order by m_orderIndex'
         self.cur.execute(sql)
         return self.cur.fetchall()
         
@@ -59,9 +59,9 @@ class Journal:
                 parent_section_id, spell_id, section_type, creature_name
         """
         if boss_id:
-            sql = 'SELECT a.m_ID as id, a.field0 as journal_title, a.field1 as journal_body_text, a.field6 as next_sibling_section_id, a.field7 as first_child_section_id, a.field8 as parent_section_id, a.field3 as spell_id, a.field10 as section_type, "" AS creature_name FROM dbc_JournalEncounterSection a WHERE field5 = {boss_id} AND a.field2 = 0 UNION ALL SELECT a.m_ID as id, a.field0 as journal_title, a.field1 as journal_body_text, a.field6 as next_sibling_section_id, a.field7 as first_child_section_id, a.field8 as parent_section_id, a.field3 as spell_id, a.field10 as section_type, b.m_name FROM dbc_JournalEncounterSection a LEFT JOIN dbc_Creature b ON a.field2 = b.m_displayID_1 WHERE field5 = {boss_id} AND a.field2 <> 0'.format(boss_id = boss_id)
+            sql = 'SELECT a.m_ID as id, a.m_title_lang as journal_title, a.m_bodyText_lang as journal_body_text, a.m_nextSiblingSectionID as next_sibling_section_id, a.m_firstChildSectionID as first_child_section_id, a.m_parentSectionID as parent_section_id, a.m_spellID as spell_id, a.m_iconFlags as section_type, "" AS creature_name FROM dbc_JournalEncounterSection a WHERE m_journalEncounterID = {boss_id} AND a.m_iconCreatureDisplayInfoID = 0 UNION ALL SELECT a.m_ID as id, a.m_title_lang as journal_title, a.m_bodyText_lang as journal_body_text, a.m_nextSiblingSectionID as next_sibling_section_id, a.m_firstChildSectionID as first_child_section_id, a.m_parentSectionID as parent_section_id, a.m_spellID as spell_id, a.m_iconFlags as section_type, b.m_name FROM dbc_JournalEncounterSection a LEFT JOIN dbc_Creature b ON a.m_iconCreatureDisplayInfoID = b.m_displayID_1 WHERE m_journalEncounterID  = {boss_id} AND a.m_iconCreatureDisplayInfoID <> 0'.format(boss_id = boss_id)
         else:
-            sql = 'SELECT a.m_ID as id, a.field0 as journal_title, a.field1 as journal_body_text, a.field6 as next_sibling_section_id, a.field7 as first_child_section_id, a.field8 as parent_section_id, a.field3 as spell_id, a.field10 as section_type, "" AS creature_name FROM dbc_JournalEncounterSection a WHERE D a.field2 = 0 UNION ALL SELECT a.m_ID as id, a.field0 as journal_title, a.field1 as journal_body_text, a.field6 as next_sibling_section_id, a.field7 as first_child_section_id, a.field8 as parent_section_id, a.field3 as spell_id, a.field10 as section_type, b.m_name FROM dbc_JournalEncounterSection a LEFT JOIN dbc_Creature b ON a.field2 = b.m_displayID_1 WHERE a.field2 <> 0'
+            sql = 'SELECT a.m_ID as id, a.m_title_lang as journal_title, a.m_bodyText_lang as journal_body_text, a.m_nextSiblingSectionID as next_sibling_section_id, a.m_firstChildSectionID as first_child_section_id, a.m_parentSectionID as parent_section_id, a.m_spellID as spell_id, a.m_iconFlags as section_type, "" AS creature_name FROM dbc_JournalEncounterSection a WHERE D a.m_iconCreatureDisplayInfoID = 0 UNION ALL SELECT a.m_ID as id, a.m_title_lang as journal_title, a.m_bodyText_lang as journal_body_text, a.m_nextSiblingSectionID as next_sibling_section_id, a.m_firstChildSectionID as first_child_section_id, a.m_parentSectionID as parent_section_id, a.m_spellID as spell_id, a.m_iconFlags as section_type, b.m_name FROM dbc_JournalEncounterSection a LEFT JOIN dbc_Creature b ON a.m_iconCreatureDisplayInfoID = b.m_displayID_1 WHERE a.m_iconCreatureDisplayInfoID <> 0'
         self.logger.debug(sql)
         self.cur.execute(sql)
         return self.process_sections(self.cur.fetchall())
