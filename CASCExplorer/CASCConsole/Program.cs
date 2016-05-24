@@ -10,36 +10,50 @@ namespace CASCConsole
 {
     class Program
     {
-        static readonly object ProgressLock = new object();
+        static object progressLock = new object();
 
         static void Main(string[] args)
         {
-            if (args.Length != 4)
+            if (args.Length != 7)
             {
                 Console.WriteLine("Invalid arguments count!");
-                Console.WriteLine("Usage: CASCConsole <pattern> <destination> <localeFlags> <contentFlags>");
+                Console.WriteLine("Usage: CASCConsole <pattern> <wow path> <destination> <localeFlags> <contentFlags> <online mode> <build name>");
                 return;
             }
-
-            Console.WriteLine("Settings:");
-            Console.WriteLine("    WowPath: {0}", Settings.Default.StoragePath);
-            Console.WriteLine("    OnlineMode: {0}", Settings.Default.OnlineMode);
 
             Console.WriteLine("Loading...");
 
             BackgroundWorkerEx bgLoader = new BackgroundWorkerEx();
             bgLoader.ProgressChanged += BgLoader_ProgressChanged;
 
-            CASCConfig config = Settings.Default.OnlineMode
-                ? CASCConfig.LoadOnlineStorageConfig(Settings.Default.Product, "us")
-                : CASCConfig.LoadLocalStorageConfig(Settings.Default.StoragePath);
+            CASCConfig config = args[5] == "True"
+                ? CASCConfig.LoadOnlineStorageConfig("wow_beta", "us")
+                : CASCConfig.LoadLocalStorageConfig(args[1]);
+            string build_name = args[6];
+            if (build_name == "")
+            {
+                foreach (var cfg in config.Builds)
+                {
+                    Console.WriteLine(cfg["build-name"][0]);
+                }
+                return;
+            }
+            for (int i = 0; i < config.Builds.Count; i++)
+            {
+                if (config.Builds[i]["build-name"][0] == build_name)
+                {
+                    config.ActiveBuild = i;
+                }
+            }
+            Console.WriteLine("Choosing build: {0}", config.Builds[config.ActiveBuild]["build-name"][0]);
+
 
             CASCHandler cascHandler = CASCHandler.OpenStorage(config, bgLoader);
 
             string pattern = args[0];
-            string dest = args[1];
-            LocaleFlags locale = (LocaleFlags)Enum.Parse(typeof(LocaleFlags), args[2]);
-            ContentFlags content = (ContentFlags)Enum.Parse(typeof(ContentFlags), args[3]);
+            string dest = args[2];
+            LocaleFlags locale = (LocaleFlags)Enum.Parse(typeof(LocaleFlags), args[3]);
+            ContentFlags content = (ContentFlags)Enum.Parse(typeof(ContentFlags), args[4]);
 
             cascHandler.Root.LoadListFile(Path.Combine(Environment.CurrentDirectory, "listfile.txt"), bgLoader);
             CASCFolder root = cascHandler.Root.SetFlags(locale, content);
@@ -62,7 +76,7 @@ namespace CASCConsole
 
                     try
                     {
-                        cascHandler.SaveFileTo(file.FullName, dest);
+                        cascHandler.SaveFileTo(file.FullName.Replace('\\', '/'), dest);
                         Console.WriteLine(" Ok!");
                     }
                     catch (Exception exc)
@@ -78,7 +92,7 @@ namespace CASCConsole
 
         private static void BgLoader_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            lock (ProgressLock)
+            lock (progressLock)
             {
                 if (e.UserState != null)
                     Console.WriteLine(e.UserState);
@@ -89,7 +103,7 @@ namespace CASCConsole
 
         private static void DrawProgressBar(long complete, long maxVal, int barSize, char progressCharacter)
         {
-            float perc = (float)complete / maxVal;
+            float perc = (float)complete / (float)maxVal;
             DrawProgressBar(perc, barSize, progressCharacter);
         }
 
@@ -97,8 +111,8 @@ namespace CASCConsole
         {
             Console.CursorVisible = false;
             int left = Console.CursorLeft;
-            int chars = (int)Math.Round(percent / (1.0f / barSize));
-            string p1 = string.Empty, p2 = string.Empty;
+            int chars = (int)Math.Round(percent / (1.0f / (float)barSize));
+            string p1 = String.Empty, p2 = String.Empty;
 
             for (int i = 0; i < chars; i++)
                 p1 += progressCharacter;
