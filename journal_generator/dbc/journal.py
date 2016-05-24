@@ -186,7 +186,7 @@ class Journal:
                     else:
                         new_pivot = sections_dict[sections_dict[pivot['parent_section_id']]['next_sibling_section_id']]
                 else: # end of everything
-                    pass
+                    break
             else: # go on
                 new_pivot = sections_dict[pivot['next_sibling_section_id']]
             current_sections.remove(pivot)

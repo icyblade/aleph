@@ -38,7 +38,7 @@ def main():
         journal[expansion_name] = {}
         for instances in j.get_instances(expansion_id):
             instance_id, instance_name, instance_description = instances['instance_id'], instances['instance_name'], instances['instance_description']
-            if not instance_name in [u'暗夜要塞', u'翡翠梦魇']: continue
+            #if not instance_name in [u'暗夜要塞', u'翡翠梦魇']: continue
             journal[expansion_name][instance_name] = OrderedDict([])
             for bosses in j.get_bosses(instance_id):
                 boss_id, boss_name, boss_description = bosses['boss_id'], bosses['boss_name'], bosses['boss_description']
