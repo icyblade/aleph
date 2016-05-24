@@ -17,6 +17,9 @@ class DBFilesClient:
         
         # return row as dict
         self.cur = self.con.cursor(dictionary=True, buffered=True)
+        self.cur.execute('use `{self.build_number}_{self.locale}`'.format(
+            self = self
+        ))
         
     def __del__(self):
         self.cur.close()
