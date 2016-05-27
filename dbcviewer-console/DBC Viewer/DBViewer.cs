@@ -50,7 +50,7 @@ namespace DBCViewer
                     sb.AppendLine(ex.ToString());
                 }
 
-                using (FileStream fs =new FileStream("debug.log",FileMode.Append))
+                using (FileStream fs =new FileStream("dbc_viewer_debug.log",FileMode.Append))
                 {
                     using (StreamWriter sw = new StreamWriter(fs))
                     {
