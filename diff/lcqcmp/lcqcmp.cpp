@@ -1,4 +1,4 @@
-/*
+ï»¿/*
 	Project:LCQ
 	Aean, 2016.4.1
 */
@@ -579,7 +579,7 @@ struct spell_tt_t {
 			str.append( subname );
 			str.append(")");
 		}
-		str.append( u8"£º" );
+		str.append( u8"ï¼š" );
 		str.append( empty_line(tooltips) );
 		str.append( "\n" );
 		return str;
@@ -617,7 +617,7 @@ struct spell_tt_t {
 			d += subname;
 			d += ")";
 		}
-		d += u8"£º";
+		d += u8"ï¼š";
 		d += diff( empty_line(tooltips), empty_line(rhs.tooltips) );
 		d += "\n";
 		return d;
@@ -817,7 +817,7 @@ int main( int argc, char** argv ) {
 
 	get_build_tooltips( con, old_build, old_tt );
 	get_build_tooltips( con, new_build, new_tt );
-	fprintf( f, "%s - %s " u8"¼¼ÄÜÎÄ±¾¸Ä¶¯\n", old_build.toStr().c_str(), new_build.toStr().c_str() );
+	fprintf( f, "%s - %s " u8"æŠ€èƒ½æ–‡æœ¬æ”¹åŠ¨\n", old_build.toStr().c_str(), new_build.toStr().c_str() );
 
 	auto vector_diff = []( std::vector<spell_tt_t>& vold, std::vector<spell_tt_t>& vnew, std::vector<std::string>& vdiff ) {
 		vdiff.clear();
@@ -829,13 +829,13 @@ int main( int argc, char** argv ) {
 					i++;
 					j++;
 				} else if (*i < *j) {
-					std::string d( u8"ÒÆ³ý¼¼ÄÜ[del][color=red]" );
+					std::string d( u8"ç§»é™¤æŠ€èƒ½[del][color=red]" );
 					d.append( i->to_str() );
 					d.append( "[/color][/del]" );
 					vdiff.push_back( d );
 					i++;
 				} else if (*j < *i) {
-					std::string d( u8"ÐÂ¼¼ÄÜ[color=green]" );
+					std::string d( u8"æ–°æŠ€èƒ½[color=green]" );
 					d.append( j->to_str() );
 					d.append( "[/color]" );
 					vdiff.push_back( d );
@@ -846,13 +846,13 @@ int main( int argc, char** argv ) {
 					j++;
 				}
 			} else if (i != vold.end()) {
-				std::string d( u8"ÒÆ³ý¼¼ÄÜ[del][color=red]" );
+				std::string d( u8"ç§»é™¤æŠ€èƒ½[del][color=red]" );
 				d.append( i->to_str() );
 				d.append( "[/color][/del]" );
 				vdiff.push_back( d );
 				i++;
 			} else {
-				std::string d( u8"ÐÂ¼¼ÄÜ[color=green]" );
+				std::string d( u8"æ–°æŠ€èƒ½[color=green]" );
 				d.append( j->to_str() );
 				d.append( "[/color]" );
 				vdiff.push_back( d );
@@ -871,7 +871,7 @@ int main( int argc, char** argv ) {
 		if (!vdiff.empty()) {
 			fprintf( f, "%s", class_header.c_str() );
 			class_header.clear();
-			fprintf( f, u8"[*]Í¨ÓÃ¼¼ÄÜ[list]" );
+			fprintf( f, u8"[*]é€šç”¨æŠ€èƒ½[list]" );
 			for (auto i = vdiff.begin(); i != vdiff.end(); i++) {
 				fprintf( f, "[*]%s", i->c_str() );
 			}
@@ -881,7 +881,7 @@ int main( int argc, char** argv ) {
 		if (!vdiff.empty()) {
 			fprintf( f, "%s", class_header.c_str() );
 			class_header.clear();
-			fprintf( f, u8"[*]Ìì¸³[list]" );
+			fprintf( f, u8"[*]å¤©èµ‹[list]" );
 			for (auto i = vdiff.begin(); i != vdiff.end(); i++) {
 				fprintf( f, "[*]%s", i->c_str() );
 			}
@@ -891,7 +891,7 @@ int main( int argc, char** argv ) {
 		if (!vdiff.empty()) {
 			fprintf( f, "%s", class_header.c_str() );
 			class_header.clear();
-			fprintf( f, u8"[*]PvPÌì¸³[list]" );
+			fprintf( f, u8"[*]PvPå¤©èµ‹[list]" );
 			for (auto i = vdiff.begin(); i != vdiff.end(); i++) {
 				fprintf( f, "[*]%s", i->c_str() );
 			}
@@ -908,7 +908,7 @@ int main( int argc, char** argv ) {
 				class_header.clear();
 				fprintf( f, "%s", spec_header.c_str() );
 				spec_header.clear();
-				fprintf( f, u8"[*]×¨¾«¼¼ÄÜ[list]" );
+				fprintf( f, u8"[*]ä¸“ç²¾æŠ€èƒ½[list]" );
 				for (auto i = vdiff.begin(); i != vdiff.end(); i++) {
 					fprintf( f, "[*]%s", i->c_str() );
 				}
@@ -920,7 +920,7 @@ int main( int argc, char** argv ) {
 				class_header.clear();
 				fprintf( f, "%s", spec_header.c_str() );
 				spec_header.clear();
-				fprintf( f, u8"[*]Ìì¸³[list]" );
+				fprintf( f, u8"[*]å¤©èµ‹[list]" );
 				for (auto i = vdiff.begin(); i != vdiff.end(); i++) {
 					fprintf( f, "[*]%s", i->c_str() );
 				}
@@ -932,7 +932,7 @@ int main( int argc, char** argv ) {
 				class_header.clear();
 				fprintf( f, "%s", spec_header.c_str() );
 				spec_header.clear();
-				fprintf( f, u8"[*]PvPÌì¸³[list]" );
+				fprintf( f, u8"[*]PvPå¤©èµ‹[list]" );
 				for (auto i = vdiff.begin(); i != vdiff.end(); i++) {
 					fprintf( f, "[*]%s", i->c_str() );
 				}
