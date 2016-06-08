@@ -206,7 +206,7 @@ namespace wowSpellArgsReplace
 
         private void readallspell()
         {
-            string sqlquery = "SELECT * FROM dbc_spell;";
+            string sqlquery = "SELECT * FROM dbc_Spell;";
 
             spellList.Clear();
             // 
@@ -288,7 +288,7 @@ namespace wowSpellArgsReplace
             if (mt.Value.StartsWith("$?j"))
             {
 
-                string sql = @"SELECT dbc_mount.m_mountType FROM dbc_spell,dbc_mount where dbc_spell.m_auradescription_lang like '%$j%' and (dbc_mount.m_spellID=dbc_spell.m_ID or dbc_spell.m_name_lang = dbc_mount.m_name) and dbc_spell.m_ID=" + currentSpell.m_ID + ";";
+                string sql = @"SELECT dbc_Mount.m_mountType FROM dbc_Spell,dbc_Mount where dbc_Spell.m_auradescription_lang like '%$j%' and (dbc_Mount.m_spellID=dbc_Spell.m_ID or dbc_Spell.m_name_lang = dbc_Mount.m_name) and dbc_Spell.m_ID=" + currentSpell.m_ID + ";";
 
                 DataSet da = getDataSet(sql);
 
@@ -646,11 +646,11 @@ namespace wowSpellArgsReplace
             {
                 //Console.WriteLine();
 
-                sql = "SELECT dbc_spellduration.m_ms_base FROM dbc_spellduration,dbc_spellmisc,dbc_spell where dbc_spell.m_ID =" + arg1 + " and dbc_spell.m_spellmisc=dbc_spellmisc.m_ID and dbc_spellmisc.m_durationIndex = dbc_spellduration.m_ID;";
+                sql = "SELECT dbc_Spellduration.m_ms_base FROM dbc_Spellduration,dbc_Spellmisc,dbc_Spell where dbc_Spell.m_ID =" + arg1 + " and dbc_Spell.m_spellmisc=dbc_Spellmisc.m_ID and dbc_Spellmisc.m_durationIndex = dbc_Spellduration.m_ID;";
             }
             else
             {
-                sql = "SELECT dbc_spellduration.m_ms_base FROM dbc_spellduration,dbc_spellmisc,dbc_spell where dbc_spell.m_ID =" + currentSpell.m_ID + " and dbc_spell.m_spellmisc=dbc_spellmisc.m_ID and dbc_spellmisc.m_durationIndex = dbc_spellduration.m_ID;";
+                sql = "SELECT dbc_Spellduration.m_ms_base FROM dbc_Spellduration,dbc_Spellmisc,dbc_Spell where dbc_Spell.m_ID =" + currentSpell.m_ID + " and dbc_Spell.m_spellmisc=dbc_Spellmisc.m_ID and dbc_Spellmisc.m_durationIndex = dbc_Spellduration.m_ID;";
             }
 
             //  Console.WriteLine(sql);
@@ -678,7 +678,7 @@ namespace wowSpellArgsReplace
             {
                 if (arg1.Length > 0)
                 {
-                    sql = "SELECT dbc_spellduration.m_ms_base FROM dbc_spellduration,dbc_spellmisc,dbc_spell where dbc_spell.m_ID =" + currentSpell.m_ID + " and dbc_spell.m_spellmisc=dbc_spellmisc.m_ID and dbc_spellmisc.m_durationIndex = dbc_spellduration.m_ID;";
+                    sql = "SELECT dbc_Spellduration.m_ms_base FROM dbc_Spellduration,dbc_Spellmisc,dbc_Spell where dbc_Spell.m_ID =" + currentSpell.m_ID + " and dbc_Spell.m_spellmisc=dbc_Spellmisc.m_ID and dbc_Spellmisc.m_durationIndex = dbc_Spellduration.m_ID;";
                     da = getDataSet(sql);
 
                     if (da.Tables[0].Rows.Count != 0)
@@ -723,11 +723,11 @@ namespace wowSpellArgsReplace
             {
                 //Console.WriteLine();
 
-                sql = "SELECT dbc_spelleffect.m_effectAuraPeriod FROM dbc_spelleffect,dbc_spell where dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_spell.m_ID =" + arg1 + ";";
+                sql = "SELECT dbc_Spelleffect.m_effectAuraPeriod FROM dbc_Spelleffect,dbc_Spell where dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_Spell.m_ID =" + arg1 + ";";
             }
             else
             {
-                sql = "SELECT dbc_spelleffect.m_effectAuraPeriod FROM dbc_spelleffect,dbc_spell where dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                sql = "SELECT dbc_Spelleffect.m_effectAuraPeriod FROM dbc_Spelleffect,dbc_Spell where dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
             }
 
             //  Console.WriteLine(sql);
@@ -771,11 +771,11 @@ namespace wowSpellArgsReplace
             {
                 //Console.WriteLine();
 
-                sql = "SELECT dbc_spellrange.m_rangeMax1 FROM dbc_spell,dbc_spellmisc,dbc_spellrange where dbc_spell.m_spellMisc=dbc_spellmisc.m_ID and dbc_spellmisc.m_rangeIndex = dbc_spellrange.m_ID and dbc_spell.m_ID =" + arg1 + ";";
+                sql = "SELECT dbc_Spellrange.m_rangeMax1 FROM dbc_Spell,dbc_Spellmisc,dbc_Spellrange where dbc_Spell.m_spellMisc=dbc_Spellmisc.m_ID and dbc_Spellmisc.m_rangeIndex = dbc_Spellrange.m_ID and dbc_Spell.m_ID =" + arg1 + ";";
             }
             else
             {
-                sql = "SELECT dbc_spellrange.m_rangeMax1 FROM dbc_spell,dbc_spellmisc,dbc_spellrange where dbc_spell.m_spellMisc=dbc_spellmisc.m_ID and dbc_spellmisc.m_rangeIndex = dbc_spellrange.m_ID and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                sql = "SELECT dbc_Spellrange.m_rangeMax1 FROM dbc_Spell,dbc_Spellmisc,dbc_Spellrange where dbc_Spell.m_spellMisc=dbc_Spellmisc.m_ID and dbc_Spellmisc.m_rangeIndex = dbc_Spellrange.m_ID and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
             }
 
             //  Console.WriteLine(sql);
@@ -814,11 +814,11 @@ namespace wowSpellArgsReplace
             {
                 //Console.WriteLine();
 
-                sql = "SELECT dbc_spellradius.m_radius FROM dbc_spell,dbc_spelleffect,dbc_spellradius where dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_spelleffect.m_radiusIndex1=dbc_spellradius.m_ID and dbc_spell.m_ID =" + arg1 + ";";
+                sql = "SELECT dbc_Spellradius.m_radius FROM dbc_Spell,dbc_Spelleffect,dbc_Spellradius where dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_Spelleffect.m_radiusIndex1=dbc_Spellradius.m_ID and dbc_Spell.m_ID =" + arg1 + ";";
             }
             else
             {
-                sql = "SELECT dbc_spellradius.m_radius FROM dbc_spell,dbc_spelleffect,dbc_spellradius where dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_spelleffect.m_radiusIndex1=dbc_spellradius.m_ID and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                sql = "SELECT dbc_Spellradius.m_radius FROM dbc_Spell,dbc_Spelleffect,dbc_Spellradius where dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_Spelleffect.m_radiusIndex1=dbc_Spellradius.m_ID and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
             }
 
             //   Console.WriteLine(sql);
@@ -839,11 +839,11 @@ namespace wowSpellArgsReplace
             {
                 //Console.WriteLine();
 
-                sql = "SELECT dbc_spellradius.m_radius FROM dbc_spell,dbc_spelleffect,dbc_spellradius where dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_spelleffect.m_radiusIndex2=dbc_spellradius.m_ID and dbc_spell.m_ID =" + arg1 + ";";
+                sql = "SELECT dbc_Spellradius.m_radius FROM dbc_Spell,dbc_Spelleffect,dbc_Spellradius where dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_Spelleffect.m_radiusIndex2=dbc_Spellradius.m_ID and dbc_Spell.m_ID =" + arg1 + ";";
             }
             else
             {
-                sql = "SELECT dbc_spellradius.m_radius FROM dbc_spell,dbc_spelleffect,dbc_spellradius where dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_spelleffect.m_radiusIndex2=dbc_spellradius.m_ID and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                sql = "SELECT dbc_Spellradius.m_radius FROM dbc_Spell,dbc_Spelleffect,dbc_Spellradius where dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_Spelleffect.m_radiusIndex2=dbc_Spellradius.m_ID and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
             }
 
             da = getDataSet(sql);
@@ -879,11 +879,11 @@ namespace wowSpellArgsReplace
             {
                 //Console.WriteLine();
 
-                sql = "SELECT dbc_spellradius.m_radius FROM dbc_spell,dbc_spelleffect,dbc_spellradius where dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_spelleffect.m_radiusIndex2=dbc_spellradius.m_ID and dbc_spell.m_ID =" + arg1 + ";";
+                sql = "SELECT dbc_Spellradius.m_radius FROM dbc_Spell,dbc_Spelleffect,dbc_Spellradius where dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_Spelleffect.m_radiusIndex2=dbc_Spellradius.m_ID and dbc_Spell.m_ID =" + arg1 + ";";
             }
             else
             {
-                sql = "SELECT dbc_spellradius.m_radius FROM dbc_spell,dbc_spelleffect,dbc_spellradius where dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_spelleffect.m_radiusIndex2=dbc_spellradius.m_ID and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                sql = "SELECT dbc_Spellradius.m_radius FROM dbc_Spell,dbc_Spelleffect,dbc_Spellradius where dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_Spelleffect.m_radiusIndex2=dbc_Spellradius.m_ID and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
             }
 
             //  Console.WriteLine(sql);
@@ -904,11 +904,11 @@ namespace wowSpellArgsReplace
             {
                 //Console.WriteLine();
 
-                sql = "SELECT dbc_spellradius.m_radius FROM dbc_spell,dbc_spelleffect,dbc_spellradius where dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_spelleffect.m_radiusIndex1=dbc_spellradius.m_ID and dbc_spell.m_ID =" + arg1 + ";";
+                sql = "SELECT dbc_Spellradius.m_radius FROM dbc_Spell,dbc_Spelleffect,dbc_Spellradius where dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_Spelleffect.m_radiusIndex1=dbc_Spellradius.m_ID and dbc_Spell.m_ID =" + arg1 + ";";
             }
             else
             {
-                sql = "SELECT dbc_spellradius.m_radius FROM dbc_spell,dbc_spelleffect,dbc_spellradius where dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_spelleffect.m_radiusIndex1=dbc_spellradius.m_ID and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                sql = "SELECT dbc_Spellradius.m_radius FROM dbc_Spell,dbc_Spelleffect,dbc_Spellradius where dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_Spelleffect.m_radiusIndex1=dbc_Spellradius.m_ID and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
             }
 
             da = getDataSet(sql);
@@ -1187,11 +1187,11 @@ namespace wowSpellArgsReplace
                                 {
                                     //Console.WriteLine();
 
-                                    sql = "SELECT dbc_spelleffect.m_effectBasePoints,dbc_spelleffect.m_effectBonusPoints,dbc_spelleffect.m_effectBonusCoefficient,dbc_spelleffect.m_bonusCoefficientFromAP,dbc_spelleffect.m_effectType,dbc_spelleffect.m_effectAuraType,dbc_spellmisc.m_attributes9 FROM dbc_spell,dbc_spelleffect,dbc_spellmisc where dbc_spell.m_spellMisc=dbc_spellMisc.m_ID and dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectType =31 and dbc_spell.m_ID =" + arg1 + ";";
+                                    sql = "SELECT dbc_Spelleffect.m_effectBasePoints,dbc_Spelleffect.m_effectBonusPoints,dbc_Spelleffect.m_effectBonusCoefficient,dbc_Spelleffect.m_bonusCoefficientFromAP,dbc_Spelleffect.m_effectType,dbc_Spelleffect.m_effectAuraType,dbc_Spellmisc.m_attributes9 FROM dbc_Spell,dbc_Spelleffect,dbc_Spellmisc where dbc_Spell.m_spellMisc=dbc_SpellMisc.m_ID and dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectType =31 and dbc_Spell.m_ID =" + arg1 + ";";
                                 }
                                 else
                                 {
-                                    sql = "SELECT dbc_spelleffect.m_effectBasePoints,dbc_spelleffect.m_effectBonusPoints,dbc_spelleffect.m_effectBonusCoefficient,dbc_spelleffect.m_bonusCoefficientFromAP,dbc_spelleffect.m_effectType,dbc_spelleffect.m_effectAuraType,dbc_spellmisc.m_attributes9 FROM dbc_spell,dbc_spelleffect,dbc_spellmisc where dbc_spell.m_spellMisc=dbc_spellMisc.m_ID and dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectType =31 and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                                    sql = "SELECT dbc_Spelleffect.m_effectBasePoints,dbc_Spelleffect.m_effectBonusPoints,dbc_Spelleffect.m_effectBonusCoefficient,dbc_Spelleffect.m_bonusCoefficientFromAP,dbc_Spelleffect.m_effectType,dbc_Spelleffect.m_effectAuraType,dbc_Spellmisc.m_attributes9 FROM dbc_Spell,dbc_Spelleffect,dbc_Spellmisc where dbc_Spell.m_spellMisc=dbc_SpellMisc.m_ID and dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectType =31 and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
                                 }
 
                                 da = getDataSet(sql);
@@ -1597,11 +1597,11 @@ namespace wowSpellArgsReplace
             {
                 //Console.WriteLine();
 
-                sql = "SELECT dbc_spelleffect.m_effectBasePoints,dbc_spelleffect.m_effectBonusPoints,dbc_spelleffect.m_effectBonusCoefficient,dbc_spelleffect.m_bonusCoefficientFromAP,dbc_spelleffect.m_effectType,dbc_spelleffect.m_effectAuraType,dbc_spellmisc.m_attributes9 FROM dbc_spell,dbc_spelleffect,dbc_spellmisc where dbc_spell.m_spellMisc=dbc_spellMisc.m_ID and dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_spell.m_ID =" + arg1 + ";";
+                sql = "SELECT dbc_Spelleffect.m_effectBasePoints,dbc_Spelleffect.m_effectBonusPoints,dbc_Spelleffect.m_effectBonusCoefficient,dbc_Spelleffect.m_bonusCoefficientFromAP,dbc_Spelleffect.m_effectType,dbc_Spelleffect.m_effectAuraType,dbc_Spellmisc.m_attributes9 FROM dbc_Spell,dbc_Spelleffect,dbc_Spellmisc where dbc_Spell.m_spellMisc=dbc_SpellMisc.m_ID and dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_Spell.m_ID =" + arg1 + ";";
             }
             else
             {
-                sql = "SELECT dbc_spelleffect.m_effectBasePoints,dbc_spelleffect.m_effectBonusPoints,dbc_spelleffect.m_effectBonusCoefficient,dbc_spelleffect.m_bonusCoefficientFromAP,dbc_spelleffect.m_effectType,dbc_spelleffect.m_effectAuraType,dbc_spellmisc.m_attributes9 FROM dbc_spell,dbc_spelleffect,dbc_spellmisc where dbc_spell.m_spellMisc=dbc_spellMisc.m_ID and dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                sql = "SELECT dbc_Spelleffect.m_effectBasePoints,dbc_Spelleffect.m_effectBonusPoints,dbc_Spelleffect.m_effectBonusCoefficient,dbc_Spelleffect.m_bonusCoefficientFromAP,dbc_Spelleffect.m_effectType,dbc_Spelleffect.m_effectAuraType,dbc_Spellmisc.m_attributes9 FROM dbc_Spell,dbc_Spelleffect,dbc_Spellmisc where dbc_Spell.m_spellMisc=dbc_SpellMisc.m_ID and dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
             }
 
 
@@ -1619,7 +1619,7 @@ namespace wowSpellArgsReplace
             {
                 if (arg1.Length > 0)
                 {
-                    sql = "SELECT dbc_spelleffect.m_effectBasePoints,dbc_spelleffect.m_effectBonusPoints,dbc_spelleffect.m_effectBonusCoefficient,dbc_spelleffect.m_bonusCoefficientFromAP,dbc_spelleffect.m_effectType,dbc_spelleffect.m_effectAuraType,dbc_spellmisc.m_attributes9 FROM dbc_spell,dbc_spelleffect,dbc_spellmisc where dbc_spell.m_spellMisc=dbc_spellMisc.m_ID and dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =0 and dbc_spell.m_ID =" + arg1 + ";";
+                    sql = "SELECT dbc_Spelleffect.m_effectBasePoints,dbc_Spelleffect.m_effectBonusPoints,dbc_Spelleffect.m_effectBonusCoefficient,dbc_Spelleffect.m_bonusCoefficientFromAP,dbc_Spelleffect.m_effectType,dbc_Spelleffect.m_effectAuraType,dbc_Spellmisc.m_attributes9 FROM dbc_Spell,dbc_Spelleffect,dbc_Spellmisc where dbc_Spell.m_spellMisc=dbc_SpellMisc.m_ID and dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =0 and dbc_Spell.m_ID =" + arg1 + ";";
 
                     da = getDataSet(sql);
                     rtstr = sValuesCatcher(da);
@@ -1629,7 +1629,7 @@ namespace wowSpellArgsReplace
                     }
                     else
                     {
-                        sql = "SELECT dbc_spelleffect.m_effectBasePoints,dbc_spelleffect.m_effectBonusPoints,dbc_spelleffect.m_effectBonusCoefficient,dbc_spelleffect.m_bonusCoefficientFromAP,dbc_spelleffect.m_effectType,dbc_spelleffect.m_effectAuraType,dbc_spellmisc.m_attributes9 FROM dbc_spell,dbc_spelleffect,dbc_spellmisc where dbc_spell.m_spellMisc=dbc_spellMisc.m_ID and dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                        sql = "SELECT dbc_Spelleffect.m_effectBasePoints,dbc_Spelleffect.m_effectBonusPoints,dbc_Spelleffect.m_effectBonusCoefficient,dbc_Spelleffect.m_bonusCoefficientFromAP,dbc_Spelleffect.m_effectType,dbc_Spelleffect.m_effectAuraType,dbc_Spellmisc.m_attributes9 FROM dbc_Spell,dbc_Spelleffect,dbc_Spellmisc where dbc_Spell.m_spellMisc=dbc_SpellMisc.m_ID and dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
                         //Console.WriteLine(sql);
                         da = getDataSet(sql);
                         rtstr = sValuesCatcher(da);
@@ -1639,7 +1639,7 @@ namespace wowSpellArgsReplace
                         }
                         else
                         {
-                            sql = "SELECT dbc_spelleffect.m_effectBasePoints,dbc_spelleffect.m_effectBonusPoints,dbc_spelleffect.m_effectBonusCoefficient,dbc_spelleffect.m_bonusCoefficientFromAP,dbc_spelleffect.m_effectType,dbc_spelleffect.m_effectAuraType,dbc_spellmisc.m_attributes9 FROM dbc_spell,dbc_spelleffect,dbc_spellmisc where dbc_spell.m_spellMisc=dbc_spellMisc.m_ID and dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =0 and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                            sql = "SELECT dbc_Spelleffect.m_effectBasePoints,dbc_Spelleffect.m_effectBonusPoints,dbc_Spelleffect.m_effectBonusCoefficient,dbc_Spelleffect.m_bonusCoefficientFromAP,dbc_Spelleffect.m_effectType,dbc_Spelleffect.m_effectAuraType,dbc_Spellmisc.m_attributes9 FROM dbc_Spell,dbc_Spelleffect,dbc_Spellmisc where dbc_Spell.m_spellMisc=dbc_SpellMisc.m_ID and dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =0 and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
 
                             da = getDataSet(sql);
                             rtstr = sValuesCatcher(da);
@@ -1656,7 +1656,7 @@ namespace wowSpellArgsReplace
                 }
                 else
                 {
-                    sql = "SELECT dbc_spelleffect.m_effectBasePoints,dbc_spelleffect.m_effectBonusPoints,dbc_spelleffect.m_effectBonusCoefficient,dbc_spelleffect.m_bonusCoefficientFromAP,dbc_spelleffect.m_effectType,dbc_spelleffect.m_effectAuraType,dbc_spellmisc.m_attributes9 FROM dbc_spell,dbc_spelleffect,dbc_spellmisc where dbc_spell.m_spellMisc=dbc_spellMisc.m_ID and dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =0 and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                    sql = "SELECT dbc_Spelleffect.m_effectBasePoints,dbc_Spelleffect.m_effectBonusPoints,dbc_Spelleffect.m_effectBonusCoefficient,dbc_Spelleffect.m_bonusCoefficientFromAP,dbc_Spelleffect.m_effectType,dbc_Spelleffect.m_effectAuraType,dbc_Spellmisc.m_attributes9 FROM dbc_Spell,dbc_Spelleffect,dbc_Spellmisc where dbc_Spell.m_spellMisc=dbc_SpellMisc.m_ID and dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =0 and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
 
                     da = getDataSet(sql);
                     rtstr = sValuesCatcher(da);
@@ -1763,11 +1763,11 @@ namespace wowSpellArgsReplace
             {
                 //Console.WriteLine();
 
-                sql = "SELECT dbc_spelleffect.m_effectBasePoints,dbc_spelleffect.m_effectBonusPoints,dbc_spelleffect.m_effectBonusCoefficient,dbc_spelleffect.m_bonusCoefficientFromAP,dbc_spelleffect.m_effectType,dbc_spelleffect.m_effectAuraType,dbc_spellmisc.m_attributes9 FROM dbc_spell,dbc_spelleffect,dbc_spellmisc where dbc_spell.m_spellMisc=dbc_spellMisc.m_ID and dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectType=31 and dbc_spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_spell.m_ID =" + arg1 + ";";
+                sql = "SELECT dbc_Spelleffect.m_effectBasePoints,dbc_Spelleffect.m_effectBonusPoints,dbc_Spelleffect.m_effectBonusCoefficient,dbc_Spelleffect.m_bonusCoefficientFromAP,dbc_Spelleffect.m_effectType,dbc_Spelleffect.m_effectAuraType,dbc_Spellmisc.m_attributes9 FROM dbc_Spell,dbc_Spelleffect,dbc_Spellmisc where dbc_Spell.m_spellMisc=dbc_SpellMisc.m_ID and dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectType=31 and dbc_Spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_Spell.m_ID =" + arg1 + ";";
             }
             else
             {
-                sql = "SELECT dbc_spelleffect.m_effectBasePoints,dbc_spelleffect.m_effectBonusPoints,dbc_spelleffect.m_effectBonusCoefficient,dbc_spelleffect.m_bonusCoefficientFromAP,dbc_spelleffect.m_effectType,dbc_spelleffect.m_effectAuraType,dbc_spellmisc.m_attributes9 FROM dbc_spell,dbc_spelleffect,dbc_spellmisc where dbc_spell.m_spellMisc=dbc_spellMisc.m_ID and dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectType=31 and dbc_spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                sql = "SELECT dbc_Spelleffect.m_effectBasePoints,dbc_Spelleffect.m_effectBonusPoints,dbc_Spelleffect.m_effectBonusCoefficient,dbc_Spelleffect.m_bonusCoefficientFromAP,dbc_Spelleffect.m_effectType,dbc_Spelleffect.m_effectAuraType,dbc_Spellmisc.m_attributes9 FROM dbc_Spell,dbc_Spelleffect,dbc_Spellmisc where dbc_Spell.m_spellMisc=dbc_SpellMisc.m_ID and dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectType=31 and dbc_Spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
             }
 
             //Console.WriteLine(sql);
@@ -1787,7 +1787,7 @@ namespace wowSpellArgsReplace
             {
                 if (arg1.Length > 0)
                 {
-                    sql = "SELECT dbc_spelleffect.m_effectBasePoints,dbc_spelleffect.m_effectBonusPoints,dbc_spelleffect.m_effectBonusCoefficient,dbc_spelleffect.m_bonusCoefficientFromAP,dbc_spelleffect.m_effectType,dbc_spelleffect.m_effectAuraType,dbc_spellmisc.m_attributes9 FROM dbc_spell,dbc_spelleffect,dbc_spellmisc where dbc_spell.m_spellMisc=dbc_spellMisc.m_ID and dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectType=31 and dbc_spell.m_ID =" + arg1 + ";";
+                    sql = "SELECT dbc_Spelleffect.m_effectBasePoints,dbc_Spelleffect.m_effectBonusPoints,dbc_Spelleffect.m_effectBonusCoefficient,dbc_Spelleffect.m_bonusCoefficientFromAP,dbc_Spelleffect.m_effectType,dbc_Spelleffect.m_effectAuraType,dbc_Spellmisc.m_attributes9 FROM dbc_Spell,dbc_Spelleffect,dbc_Spellmisc where dbc_Spell.m_spellMisc=dbc_SpellMisc.m_ID and dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectType=31 and dbc_Spell.m_ID =" + arg1 + ";";
                     //Console.WriteLine(sql);
                     da = getDataSet(sql);
                     rtstr = swValuesCatcher(da, arg1, sql);
@@ -1798,7 +1798,7 @@ namespace wowSpellArgsReplace
                     }
                     else
                     {
-                        sql = "SELECT dbc_spelleffect.m_effectBasePoints,dbc_spelleffect.m_effectBonusPoints,dbc_spelleffect.m_effectBonusCoefficient,dbc_spelleffect.m_bonusCoefficientFromAP,dbc_spelleffect.m_effectType,dbc_spelleffect.m_effectAuraType,dbc_spellmisc.m_attributes9 FROM dbc_spell,dbc_spelleffect,dbc_spellmisc where dbc_spell.m_spellMisc=dbc_spellMisc.m_ID and dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                        sql = "SELECT dbc_Spelleffect.m_effectBasePoints,dbc_Spelleffect.m_effectBonusPoints,dbc_Spelleffect.m_effectBonusCoefficient,dbc_Spelleffect.m_bonusCoefficientFromAP,dbc_Spelleffect.m_effectType,dbc_Spelleffect.m_effectAuraType,dbc_Spellmisc.m_attributes9 FROM dbc_Spell,dbc_Spelleffect,dbc_Spellmisc where dbc_Spell.m_spellMisc=dbc_SpellMisc.m_ID and dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
                         //Console.WriteLine(sql);
                         da = getDataSet(sql);
                         rtstr = swValuesCatcher(da, arg1, sql);
@@ -1809,7 +1809,7 @@ namespace wowSpellArgsReplace
                         }
                         else
                         {
-                            sql = "SELECT dbc_spelleffect.m_effectBasePoints,dbc_spelleffect.m_effectBonusPoints,dbc_spelleffect.m_effectBonusCoefficient,dbc_spelleffect.m_bonusCoefficientFromAP,dbc_spelleffect.m_effectType,dbc_spelleffect.m_effectAuraType,dbc_spellmisc.m_attributes9 FROM dbc_spell,dbc_spelleffect,dbc_spellmisc where dbc_spell.m_spellMisc=dbc_spellMisc.m_ID and dbc_spelleffect.m_spellID=dbc_spell.m_ID and  dbc_spelleffect.m_effectIndex =0 and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                            sql = "SELECT dbc_Spelleffect.m_effectBasePoints,dbc_Spelleffect.m_effectBonusPoints,dbc_Spelleffect.m_effectBonusCoefficient,dbc_Spelleffect.m_bonusCoefficientFromAP,dbc_Spelleffect.m_effectType,dbc_Spelleffect.m_effectAuraType,dbc_Spellmisc.m_attributes9 FROM dbc_Spell,dbc_Spelleffect,dbc_Spellmisc where dbc_Spell.m_spellMisc=dbc_SpellMisc.m_ID and dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and  dbc_Spelleffect.m_effectIndex =0 and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
                             //  Console.WriteLine(sql);
                             da = getDataSet(sql);
                             rtstr = swValuesCatcher(da, arg1, sql);
@@ -1827,7 +1827,7 @@ namespace wowSpellArgsReplace
                 }
                 else
                 {
-                    sql = "SELECT dbc_spelleffect.m_effectBasePoints,dbc_spelleffect.m_effectBonusPoints,dbc_spelleffect.m_effectBonusCoefficient,dbc_spelleffect.m_bonusCoefficientFromAP,dbc_spelleffect.m_effectType,dbc_spelleffect.m_effectAuraType,dbc_spellmisc.m_attributes9 FROM dbc_spell,dbc_spelleffect,dbc_spellmisc where dbc_spell.m_spellMisc=dbc_spellMisc.m_ID and dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectType=31 and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                    sql = "SELECT dbc_Spelleffect.m_effectBasePoints,dbc_Spelleffect.m_effectBonusPoints,dbc_Spelleffect.m_effectBonusCoefficient,dbc_Spelleffect.m_bonusCoefficientFromAP,dbc_Spelleffect.m_effectType,dbc_Spelleffect.m_effectAuraType,dbc_Spellmisc.m_attributes9 FROM dbc_Spell,dbc_Spelleffect,dbc_Spellmisc where dbc_Spell.m_spellMisc=dbc_SpellMisc.m_ID and dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectType=31 and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
 
                     da = getDataSet(sql);
                     rtstr = swValuesCatcher(da, arg1, sql);
@@ -1838,7 +1838,7 @@ namespace wowSpellArgsReplace
                     }
                     else
                     {
-                        sql = "SELECT dbc_spelleffect.m_effectBasePoints,dbc_spelleffect.m_effectBonusPoints,dbc_spelleffect.m_effectBonusCoefficient,dbc_spelleffect.m_bonusCoefficientFromAP,dbc_spelleffect.m_effectType,dbc_spelleffect.m_effectAuraType,dbc_spellmisc.m_attributes9 FROM dbc_spell,dbc_spelleffect,dbc_spellmisc where dbc_spell.m_spellMisc=dbc_spellMisc.m_ID and dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                        sql = "SELECT dbc_Spelleffect.m_effectBasePoints,dbc_Spelleffect.m_effectBonusPoints,dbc_Spelleffect.m_effectBonusCoefficient,dbc_Spelleffect.m_bonusCoefficientFromAP,dbc_Spelleffect.m_effectType,dbc_Spelleffect.m_effectAuraType,dbc_Spellmisc.m_attributes9 FROM dbc_Spell,dbc_Spelleffect,dbc_Spellmisc where dbc_Spell.m_spellMisc=dbc_SpellMisc.m_ID and dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
                         //Console.WriteLine(sql);
                         da = getDataSet(sql);
                         rtstr = swValuesCatcher(da, arg1, sql);
@@ -1848,7 +1848,7 @@ namespace wowSpellArgsReplace
                         }
                         else
                         {
-                            sql = "SELECT dbc_spelleffect.m_effectBasePoints,dbc_spelleffect.m_effectBonusPoints,dbc_spelleffect.m_effectBonusCoefficient,dbc_spelleffect.m_bonusCoefficientFromAP,dbc_spelleffect.m_effectType,dbc_spelleffect.m_effectAuraType,dbc_spellmisc.m_attributes9 FROM dbc_spell,dbc_spelleffect,dbc_spellmisc where dbc_spell.m_spellMisc=dbc_spellMisc.m_ID and dbc_spelleffect.m_spellID=dbc_spell.m_ID and  dbc_spelleffect.m_effectIndex =0 and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                            sql = "SELECT dbc_Spelleffect.m_effectBasePoints,dbc_Spelleffect.m_effectBonusPoints,dbc_Spelleffect.m_effectBonusCoefficient,dbc_Spelleffect.m_bonusCoefficientFromAP,dbc_Spelleffect.m_effectType,dbc_Spelleffect.m_effectAuraType,dbc_Spellmisc.m_attributes9 FROM dbc_Spell,dbc_Spelleffect,dbc_Spellmisc where dbc_Spell.m_spellMisc=dbc_SpellMisc.m_ID and dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and  dbc_Spelleffect.m_effectIndex =0 and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
                             //  Console.WriteLine(sql);
                             da = getDataSet(sql);
                             rtstr = swValuesCatcher(da, arg1, sql);
@@ -1938,11 +1938,11 @@ namespace wowSpellArgsReplace
             //                {
             //                    //Console.WriteLine();
 
-            //                    sql = "SELECT dbc_spelleffect.m_effectBasePoints,dbc_spelleffect.m_effectBonusPoints,dbc_spelleffect.m_effectBonusCoefficient,dbc_spelleffect.m_bonusCoefficientFromAP,dbc_spelleffect.m_effectType,dbc_spelleffect.m_effectAuraType,dbc_spellmisc.m_attributes9 FROM dbc_spell,dbc_spelleffect,dbc_spellmisc where dbc_spell.m_spellMisc=dbc_spellMisc.m_ID and dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectType =31 and dbc_spell.m_ID =" + arg1 + ";";
+            //                    sql = "SELECT dbc_Spelleffect.m_effectBasePoints,dbc_Spelleffect.m_effectBonusPoints,dbc_Spelleffect.m_effectBonusCoefficient,dbc_Spelleffect.m_bonusCoefficientFromAP,dbc_Spelleffect.m_effectType,dbc_Spelleffect.m_effectAuraType,dbc_Spellmisc.m_attributes9 FROM dbc_Spell,dbc_Spelleffect,dbc_Spellmisc where dbc_Spell.m_spellMisc=dbc_SpellMisc.m_ID and dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectType =31 and dbc_Spell.m_ID =" + arg1 + ";";
             //                }
             //                else
             //                {
-            //                    sql = "SELECT dbc_spelleffect.m_effectBasePoints,dbc_spelleffect.m_effectBonusPoints,dbc_spelleffect.m_effectBonusCoefficient,dbc_spelleffect.m_bonusCoefficientFromAP,dbc_spelleffect.m_effectType,dbc_spelleffect.m_effectAuraType,dbc_spellmisc.m_attributes9 FROM dbc_spell,dbc_spelleffect,dbc_spellmisc where dbc_spell.m_spellMisc=dbc_spellMisc.m_ID and dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectType =31 and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+            //                    sql = "SELECT dbc_Spelleffect.m_effectBasePoints,dbc_Spelleffect.m_effectBonusPoints,dbc_Spelleffect.m_effectBonusCoefficient,dbc_Spelleffect.m_bonusCoefficientFromAP,dbc_Spelleffect.m_effectType,dbc_Spelleffect.m_effectAuraType,dbc_Spellmisc.m_attributes9 FROM dbc_Spell,dbc_Spelleffect,dbc_Spellmisc where dbc_Spell.m_spellMisc=dbc_SpellMisc.m_ID and dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectType =31 and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
             //                }
 
             //                da = getDataSet(sql);
@@ -2003,11 +2003,11 @@ namespace wowSpellArgsReplace
             {
                 //Console.WriteLine();
 
-                sql = "SELECT dbc_spelleffect.m_effectBasePoints,dbc_spelleffect.m_effectBonusPoints,dbc_spelleffect.m_effectBonusCoefficient,dbc_spelleffect.m_bonusCoefficientFromAP,dbc_spelleffect.m_effectType,dbc_spelleffect.m_effectAuraType,dbc_spellmisc.m_attributes9 FROM dbc_spell,dbc_spelleffect,dbc_spellmisc where dbc_spell.m_spellMisc=dbc_spellMisc.m_ID and dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_spell.m_ID =" + arg1 + ";";
+                sql = "SELECT dbc_Spelleffect.m_effectBasePoints,dbc_Spelleffect.m_effectBonusPoints,dbc_Spelleffect.m_effectBonusCoefficient,dbc_Spelleffect.m_bonusCoefficientFromAP,dbc_Spelleffect.m_effectType,dbc_Spelleffect.m_effectAuraType,dbc_Spellmisc.m_attributes9 FROM dbc_Spell,dbc_Spelleffect,dbc_Spellmisc where dbc_Spell.m_spellMisc=dbc_SpellMisc.m_ID and dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_Spell.m_ID =" + arg1 + ";";
             }
             else
             {
-                sql = "SELECT dbc_spelleffect.m_effectBasePoints,dbc_spelleffect.m_effectBonusPoints,dbc_spelleffect.m_effectBonusCoefficient,dbc_spelleffect.m_bonusCoefficientFromAP,dbc_spelleffect.m_effectType,dbc_spelleffect.m_effectAuraType,dbc_spellmisc.m_attributes9 FROM dbc_spell,dbc_spelleffect,dbc_spellmisc where dbc_spell.m_spellMisc=dbc_spellMisc.m_ID and dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                sql = "SELECT dbc_Spelleffect.m_effectBasePoints,dbc_Spelleffect.m_effectBonusPoints,dbc_Spelleffect.m_effectBonusCoefficient,dbc_Spelleffect.m_bonusCoefficientFromAP,dbc_Spelleffect.m_effectType,dbc_Spelleffect.m_effectAuraType,dbc_Spellmisc.m_attributes9 FROM dbc_Spell,dbc_Spelleffect,dbc_Spellmisc where dbc_Spell.m_spellMisc=dbc_SpellMisc.m_ID and dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
             }
 
             //  Console.WriteLine(sql);
@@ -2024,7 +2024,7 @@ namespace wowSpellArgsReplace
             {
                 if (arg1.Length > 0)
                 {
-                    sql = "SELECT dbc_spelleffect.m_effectBasePoints,dbc_spelleffect.m_effectBonusPoints,dbc_spelleffect.m_effectBonusCoefficient,dbc_spelleffect.m_bonusCoefficientFromAP,dbc_spelleffect.m_effectType,dbc_spelleffect.m_effectAuraType,dbc_spellmisc.m_attributes9 FROM dbc_spell,dbc_spelleffect,dbc_spellmisc where dbc_spell.m_spellMisc=dbc_spellMisc.m_ID and dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =0 and dbc_spell.m_ID =" + arg1 + ";";
+                    sql = "SELECT dbc_Spelleffect.m_effectBasePoints,dbc_Spelleffect.m_effectBonusPoints,dbc_Spelleffect.m_effectBonusCoefficient,dbc_Spelleffect.m_bonusCoefficientFromAP,dbc_Spelleffect.m_effectType,dbc_Spelleffect.m_effectAuraType,dbc_Spellmisc.m_attributes9 FROM dbc_Spell,dbc_Spelleffect,dbc_Spellmisc where dbc_Spell.m_spellMisc=dbc_SpellMisc.m_ID and dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =0 and dbc_Spell.m_ID =" + arg1 + ";";
                     da = getDataSet(sql);
                     rtstr = minValuesCatcher(da);
                     if (!rtstr.Equals("NULL"))
@@ -2033,7 +2033,7 @@ namespace wowSpellArgsReplace
                     }
                     else
                     {
-                        sql = "SELECT dbc_spelleffect.m_effectBasePoints,dbc_spelleffect.m_effectBonusPoints,dbc_spelleffect.m_effectBonusCoefficient,dbc_spelleffect.m_bonusCoefficientFromAP,dbc_spelleffect.m_effectType,dbc_spelleffect.m_effectAuraType,dbc_spellmisc.m_attributes9 FROM dbc_spell,dbc_spelleffect,dbc_spellmisc where dbc_spell.m_spellMisc=dbc_spellMisc.m_ID and dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                        sql = "SELECT dbc_Spelleffect.m_effectBasePoints,dbc_Spelleffect.m_effectBonusPoints,dbc_Spelleffect.m_effectBonusCoefficient,dbc_Spelleffect.m_bonusCoefficientFromAP,dbc_Spelleffect.m_effectType,dbc_Spelleffect.m_effectAuraType,dbc_Spellmisc.m_attributes9 FROM dbc_Spell,dbc_Spelleffect,dbc_Spellmisc where dbc_Spell.m_spellMisc=dbc_SpellMisc.m_ID and dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
                         da = getDataSet(sql);
                         rtstr = minValuesCatcher(da);
                         if (!rtstr.Equals("NULL"))
@@ -2042,7 +2042,7 @@ namespace wowSpellArgsReplace
                         }
                         else
                         {
-                            sql = "SELECT dbc_spelleffect.m_effectBasePoints,dbc_spelleffect.m_effectBonusPoints,dbc_spelleffect.m_effectBonusCoefficient,dbc_spelleffect.m_bonusCoefficientFromAP,dbc_spelleffect.m_effectType,dbc_spelleffect.m_effectAuraType,dbc_spellmisc.m_attributes9 FROM dbc_spell,dbc_spelleffect,dbc_spellmisc where dbc_spell.m_spellMisc=dbc_spellMisc.m_ID and dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =0 and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                            sql = "SELECT dbc_Spelleffect.m_effectBasePoints,dbc_Spelleffect.m_effectBonusPoints,dbc_Spelleffect.m_effectBonusCoefficient,dbc_Spelleffect.m_bonusCoefficientFromAP,dbc_Spelleffect.m_effectType,dbc_Spelleffect.m_effectAuraType,dbc_Spellmisc.m_attributes9 FROM dbc_Spell,dbc_Spelleffect,dbc_Spellmisc where dbc_Spell.m_spellMisc=dbc_SpellMisc.m_ID and dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =0 and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
                             da = getDataSet(sql);
                             rtstr = minValuesCatcher(da);
                             if (!rtstr.Equals("NULL"))
@@ -2058,7 +2058,7 @@ namespace wowSpellArgsReplace
                 }
                 else
                 {
-                    sql = "SELECT dbc_spelleffect.m_effectBasePoints,dbc_spelleffect.m_effectBonusPoints,dbc_spelleffect.m_effectBonusCoefficient,dbc_spelleffect.m_bonusCoefficientFromAP,dbc_spelleffect.m_effectType,dbc_spelleffect.m_effectAuraType,dbc_spellmisc.m_attributes9 FROM dbc_spell,dbc_spelleffect,dbc_spellmisc where dbc_spell.m_spellMisc=dbc_spellMisc.m_ID and dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =0 and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                    sql = "SELECT dbc_Spelleffect.m_effectBasePoints,dbc_Spelleffect.m_effectBonusPoints,dbc_Spelleffect.m_effectBonusCoefficient,dbc_Spelleffect.m_bonusCoefficientFromAP,dbc_Spelleffect.m_effectType,dbc_Spelleffect.m_effectAuraType,dbc_Spellmisc.m_attributes9 FROM dbc_Spell,dbc_Spelleffect,dbc_Spellmisc where dbc_Spell.m_spellMisc=dbc_SpellMisc.m_ID and dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =0 and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
                     da = getDataSet(sql);
                     rtstr = minValuesCatcher(da);
                     if (!rtstr.Equals("NULL"))
@@ -2094,11 +2094,11 @@ namespace wowSpellArgsReplace
             {
                 //Console.WriteLine();
 
-                sql = "SELECT dbc_spelleffect.m_effectBasePoints,dbc_spelleffect.m_effectBonusPoints,dbc_spelleffect.m_effectBonusCoefficient,dbc_spelleffect.m_bonusCoefficientFromAP,dbc_spelleffect.m_effectType,dbc_spelleffect.m_effectAuraType,dbc_spellmisc.m_attributes9 FROM dbc_spell,dbc_spelleffect,dbc_spellmisc where dbc_spell.m_spellMisc=dbc_spellMisc.m_ID and dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_spell.m_ID =" + arg1 + ";";
+                sql = "SELECT dbc_Spelleffect.m_effectBasePoints,dbc_Spelleffect.m_effectBonusPoints,dbc_Spelleffect.m_effectBonusCoefficient,dbc_Spelleffect.m_bonusCoefficientFromAP,dbc_Spelleffect.m_effectType,dbc_Spelleffect.m_effectAuraType,dbc_Spellmisc.m_attributes9 FROM dbc_Spell,dbc_Spelleffect,dbc_Spellmisc where dbc_Spell.m_spellMisc=dbc_SpellMisc.m_ID and dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_Spell.m_ID =" + arg1 + ";";
             }
             else
             {
-                sql = "SELECT dbc_spelleffect.m_effectBasePoints,dbc_spelleffect.m_effectBonusPoints,dbc_spelleffect.m_effectBonusCoefficient,dbc_spelleffect.m_bonusCoefficientFromAP,dbc_spelleffect.m_effectType,dbc_spelleffect.m_effectAuraType,dbc_spellmisc.m_attributes9 FROM dbc_spell,dbc_spelleffect,dbc_spellmisc where dbc_spell.m_spellMisc=dbc_spellMisc.m_ID and dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                sql = "SELECT dbc_Spelleffect.m_effectBasePoints,dbc_Spelleffect.m_effectBonusPoints,dbc_Spelleffect.m_effectBonusCoefficient,dbc_Spelleffect.m_bonusCoefficientFromAP,dbc_Spelleffect.m_effectType,dbc_Spelleffect.m_effectAuraType,dbc_Spellmisc.m_attributes9 FROM dbc_Spell,dbc_Spelleffect,dbc_Spellmisc where dbc_Spell.m_spellMisc=dbc_SpellMisc.m_ID and dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
             }
 
             //  Console.WriteLine(sql);
@@ -2116,7 +2116,7 @@ namespace wowSpellArgsReplace
             {
                 if (arg1.Length > 0)
                 {
-                    sql = "SELECT dbc_spelleffect.m_effectBasePoints,dbc_spelleffect.m_effectBonusPoints,dbc_spelleffect.m_effectBonusCoefficient,dbc_spelleffect.m_bonusCoefficientFromAP,dbc_spelleffect.m_effectType,dbc_spelleffect.m_effectAuraType,dbc_spellmisc.m_attributes9 FROM dbc_spell,dbc_spelleffect,dbc_spellmisc where dbc_spell.m_spellMisc=dbc_spellMisc.m_ID and dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =0 and dbc_spell.m_ID =" + arg1 + ";";
+                    sql = "SELECT dbc_Spelleffect.m_effectBasePoints,dbc_Spelleffect.m_effectBonusPoints,dbc_Spelleffect.m_effectBonusCoefficient,dbc_Spelleffect.m_bonusCoefficientFromAP,dbc_Spelleffect.m_effectType,dbc_Spelleffect.m_effectAuraType,dbc_Spellmisc.m_attributes9 FROM dbc_Spell,dbc_Spelleffect,dbc_Spellmisc where dbc_Spell.m_spellMisc=dbc_SpellMisc.m_ID and dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =0 and dbc_Spell.m_ID =" + arg1 + ";";
                     da = getDataSet(sql);
                     rtstr = maxValuesCatcher(da);
                     if (!rtstr.Equals("NULL"))
@@ -2125,7 +2125,7 @@ namespace wowSpellArgsReplace
                     }
                     else
                     {
-                        sql = "SELECT dbc_spelleffect.m_effectBasePoints,dbc_spelleffect.m_effectBonusPoints,dbc_spelleffect.m_effectBonusCoefficient,dbc_spelleffect.m_bonusCoefficientFromAP,dbc_spelleffect.m_effectType,dbc_spelleffect.m_effectAuraType,dbc_spellmisc.m_attributes9 FROM dbc_spell,dbc_spelleffect,dbc_spellmisc where dbc_spell.m_spellMisc=dbc_spellMisc.m_ID and dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                        sql = "SELECT dbc_Spelleffect.m_effectBasePoints,dbc_Spelleffect.m_effectBonusPoints,dbc_Spelleffect.m_effectBonusCoefficient,dbc_Spelleffect.m_bonusCoefficientFromAP,dbc_Spelleffect.m_effectType,dbc_Spelleffect.m_effectAuraType,dbc_Spellmisc.m_attributes9 FROM dbc_Spell,dbc_Spelleffect,dbc_Spellmisc where dbc_Spell.m_spellMisc=dbc_SpellMisc.m_ID and dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
                         da = getDataSet(sql);
                         rtstr = maxValuesCatcher(da);
                         if (!rtstr.Equals("NULL"))
@@ -2134,7 +2134,7 @@ namespace wowSpellArgsReplace
                         }
                         else
                         {
-                            sql = "SELECT dbc_spelleffect.m_effectBasePoints,dbc_spelleffect.m_effectBonusPoints,dbc_spelleffect.m_effectBonusCoefficient,dbc_spelleffect.m_bonusCoefficientFromAP,dbc_spelleffect.m_effectType,dbc_spelleffect.m_effectAuraType,dbc_spellmisc.m_attributes9 FROM dbc_spell,dbc_spelleffect,dbc_spellmisc where dbc_spell.m_spellMisc=dbc_spellMisc.m_ID and dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =0 and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                            sql = "SELECT dbc_Spelleffect.m_effectBasePoints,dbc_Spelleffect.m_effectBonusPoints,dbc_Spelleffect.m_effectBonusCoefficient,dbc_Spelleffect.m_bonusCoefficientFromAP,dbc_Spelleffect.m_effectType,dbc_Spelleffect.m_effectAuraType,dbc_Spellmisc.m_attributes9 FROM dbc_Spell,dbc_Spelleffect,dbc_Spellmisc where dbc_Spell.m_spellMisc=dbc_SpellMisc.m_ID and dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =0 and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
                             da = getDataSet(sql);
                             rtstr = maxValuesCatcher(da);
                             if (!rtstr.Equals("NULL"))
@@ -2150,7 +2150,7 @@ namespace wowSpellArgsReplace
                 }
                 else
                 {
-                    sql = "SELECT dbc_spelleffect.m_effectBasePoints,dbc_spelleffect.m_effectBonusPoints,dbc_spelleffect.m_effectBonusCoefficient,dbc_spelleffect.m_bonusCoefficientFromAP,dbc_spelleffect.m_effectType,dbc_spelleffect.m_effectAuraType,dbc_spellmisc.m_attributes9 FROM dbc_spell,dbc_spelleffect,dbc_spellmisc where dbc_spell.m_spellMisc=dbc_spellMisc.m_ID and dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =0 and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                    sql = "SELECT dbc_Spelleffect.m_effectBasePoints,dbc_Spelleffect.m_effectBonusPoints,dbc_Spelleffect.m_effectBonusCoefficient,dbc_Spelleffect.m_bonusCoefficientFromAP,dbc_Spelleffect.m_effectType,dbc_Spelleffect.m_effectAuraType,dbc_Spellmisc.m_attributes9 FROM dbc_Spell,dbc_Spelleffect,dbc_Spellmisc where dbc_Spell.m_spellMisc=dbc_SpellMisc.m_ID and dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =0 and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
                     da = getDataSet(sql);
                     rtstr = maxValuesCatcher(da);
                     if (!rtstr.Equals("NULL"))
@@ -2188,11 +2188,11 @@ namespace wowSpellArgsReplace
             {
                 //Console.WriteLine();
 
-                sql = "SELECT dbc_spelleffect.m_effectAuraPeriod FROM dbc_spelleffect,dbc_spell where dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_spell.m_ID =" + arg1 + ";";
+                sql = "SELECT dbc_Spelleffect.m_effectAuraPeriod FROM dbc_Spelleffect,dbc_Spell where dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_Spell.m_ID =" + arg1 + ";";
             }
             else
             {
-                sql = "SELECT dbc_spelleffect.m_effectAuraPeriod FROM dbc_spelleffect,dbc_spell where dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                sql = "SELECT dbc_Spelleffect.m_effectAuraPeriod FROM dbc_Spelleffect,dbc_Spell where dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
             }
 
             //  Console.WriteLine(sql);
@@ -2222,13 +2222,13 @@ namespace wowSpellArgsReplace
             {
                 //Console.WriteLine();
 
-                sql = "SELECT dbc_spelleffect.m_effectBasePoints,dbc_spelleffect.m_effectBonusPoints,dbc_spelleffect.m_effectBonusCoefficient,dbc_spelleffect.m_bonusCoefficientFromAP,dbc_spelleffect.m_effectType,dbc_spelleffect.m_effectAuraType,dbc_spellmisc.m_attributes9 FROM dbc_spell,dbc_spelleffect,dbc_spellmisc where dbc_spell.m_spellMisc=dbc_spellMisc.m_ID and dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_spell.m_ID =" + arg1 + ";";
+                sql = "SELECT dbc_Spelleffect.m_effectBasePoints,dbc_Spelleffect.m_effectBonusPoints,dbc_Spelleffect.m_effectBonusCoefficient,dbc_Spelleffect.m_bonusCoefficientFromAP,dbc_Spelleffect.m_effectType,dbc_Spelleffect.m_effectAuraType,dbc_Spellmisc.m_attributes9 FROM dbc_Spell,dbc_Spelleffect,dbc_Spellmisc where dbc_Spell.m_spellMisc=dbc_SpellMisc.m_ID and dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_Spell.m_ID =" + arg1 + ";";
 
 
             }
             else
             {
-                sql = "SELECT dbc_spelleffect.m_effectBasePoints,dbc_spelleffect.m_effectBonusPoints,dbc_spelleffect.m_effectBonusCoefficient,dbc_spelleffect.m_bonusCoefficientFromAP,dbc_spelleffect.m_effectType,dbc_spelleffect.m_effectAuraType,dbc_spellmisc.m_attributes9 FROM dbc_spell,dbc_spelleffect,dbc_spellmisc where dbc_spell.m_spellMisc=dbc_spellMisc.m_ID and dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                sql = "SELECT dbc_Spelleffect.m_effectBasePoints,dbc_Spelleffect.m_effectBonusPoints,dbc_Spelleffect.m_effectBonusCoefficient,dbc_Spelleffect.m_bonusCoefficientFromAP,dbc_Spelleffect.m_effectType,dbc_Spelleffect.m_effectAuraType,dbc_Spellmisc.m_attributes9 FROM dbc_Spell,dbc_Spelleffect,dbc_Spellmisc where dbc_Spell.m_spellMisc=dbc_SpellMisc.m_ID and dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
 
 
             }
@@ -2250,7 +2250,7 @@ namespace wowSpellArgsReplace
             {
                 if (arg1.Length > 0)
                 {
-                    sql = "SELECT dbc_spelleffect.m_effectBasePoints,dbc_spelleffect.m_effectBonusPoints,dbc_spelleffect.m_effectBonusCoefficient,dbc_spelleffect.m_bonusCoefficientFromAP,dbc_spelleffect.m_effectType,dbc_spelleffect.m_effectAuraType,dbc_spellmisc.m_attributes9 FROM dbc_spell,dbc_spelleffect,dbc_spellmisc where dbc_spell.m_spellMisc=dbc_spellMisc.m_ID and dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =0 and dbc_spell.m_ID =" + arg1 + ";";
+                    sql = "SELECT dbc_Spelleffect.m_effectBasePoints,dbc_Spelleffect.m_effectBonusPoints,dbc_Spelleffect.m_effectBonusCoefficient,dbc_Spelleffect.m_bonusCoefficientFromAP,dbc_Spelleffect.m_effectType,dbc_Spelleffect.m_effectAuraType,dbc_Spellmisc.m_attributes9 FROM dbc_Spell,dbc_Spelleffect,dbc_Spellmisc where dbc_Spell.m_spellMisc=dbc_SpellMisc.m_ID and dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =0 and dbc_Spell.m_ID =" + arg1 + ";";
                     da = getDataSet(sql);
                     rtstr = oValuesCatcher(da, duration, timePeriod);
                     if (!rtstr.Equals("NULL"))
@@ -2259,7 +2259,7 @@ namespace wowSpellArgsReplace
                     }
                     else
                     {
-                        sql = "SELECT dbc_spelleffect.m_effectBasePoints,dbc_spelleffect.m_effectBonusPoints,dbc_spelleffect.m_effectBonusCoefficient,dbc_spelleffect.m_bonusCoefficientFromAP,dbc_spelleffect.m_effectType,dbc_spelleffect.m_effectAuraType,dbc_spellmisc.m_attributes9 FROM dbc_spell,dbc_spelleffect,dbc_spellmisc where dbc_spell.m_spellMisc=dbc_spellMisc.m_ID and dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                        sql = "SELECT dbc_Spelleffect.m_effectBasePoints,dbc_Spelleffect.m_effectBonusPoints,dbc_Spelleffect.m_effectBonusCoefficient,dbc_Spelleffect.m_bonusCoefficientFromAP,dbc_Spelleffect.m_effectType,dbc_Spelleffect.m_effectAuraType,dbc_Spellmisc.m_attributes9 FROM dbc_Spell,dbc_Spelleffect,dbc_Spellmisc where dbc_Spell.m_spellMisc=dbc_SpellMisc.m_ID and dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
                         da = getDataSet(sql);
                         rtstr = oValuesCatcher(da, duration, timePeriod);
                         if (!rtstr.Equals("NULL"))
@@ -2268,7 +2268,7 @@ namespace wowSpellArgsReplace
                         }
                         else
                         {
-                            sql = "SELECT dbc_spelleffect.m_effectBasePoints,dbc_spelleffect.m_effectBonusPoints,dbc_spelleffect.m_effectBonusCoefficient,dbc_spelleffect.m_bonusCoefficientFromAP,dbc_spelleffect.m_effectType,dbc_spelleffect.m_effectAuraType,dbc_spellmisc.m_attributes9 FROM dbc_spell,dbc_spelleffect,dbc_spellmisc where dbc_spell.m_spellMisc=dbc_spellMisc.m_ID and dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =0 and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                            sql = "SELECT dbc_Spelleffect.m_effectBasePoints,dbc_Spelleffect.m_effectBonusPoints,dbc_Spelleffect.m_effectBonusCoefficient,dbc_Spelleffect.m_bonusCoefficientFromAP,dbc_Spelleffect.m_effectType,dbc_Spelleffect.m_effectAuraType,dbc_Spellmisc.m_attributes9 FROM dbc_Spell,dbc_Spelleffect,dbc_Spellmisc where dbc_Spell.m_spellMisc=dbc_SpellMisc.m_ID and dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =0 and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
                             da = getDataSet(sql);
                             rtstr = oValuesCatcher(da, duration, timePeriod);
                             if (!rtstr.Equals("NULL"))
@@ -2284,7 +2284,7 @@ namespace wowSpellArgsReplace
                 }
                 else
                 {
-                    sql = "SELECT dbc_spelleffect.m_effectBasePoints,dbc_spelleffect.m_effectBonusPoints,dbc_spelleffect.m_effectBonusCoefficient,dbc_spelleffect.m_bonusCoefficientFromAP,dbc_spelleffect.m_effectType,dbc_spelleffect.m_effectAuraType,dbc_spellmisc.m_attributes9 FROM dbc_spell,dbc_spelleffect,dbc_spellmisc where dbc_spell.m_spellMisc=dbc_spellMisc.m_ID and dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =0 and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                    sql = "SELECT dbc_Spelleffect.m_effectBasePoints,dbc_Spelleffect.m_effectBonusPoints,dbc_Spelleffect.m_effectBonusCoefficient,dbc_Spelleffect.m_bonusCoefficientFromAP,dbc_Spelleffect.m_effectType,dbc_Spelleffect.m_effectAuraType,dbc_Spellmisc.m_attributes9 FROM dbc_Spell,dbc_Spelleffect,dbc_Spellmisc where dbc_Spell.m_spellMisc=dbc_SpellMisc.m_ID and dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =0 and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
                     da = getDataSet(sql);
                     rtstr = oValuesCatcher(da, duration, timePeriod);
                     if (!rtstr.Equals("NULL"))
@@ -2323,11 +2323,11 @@ namespace wowSpellArgsReplace
             {
                 //Console.WriteLine();
 
-                sql = "SELECT dbc_spelleffect.m_effectPointsPerResource FROM dbc_spelleffect,dbc_spell where dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_spell.m_ID =" + arg1 + ";";
+                sql = "SELECT dbc_Spelleffect.m_effectPointsPerResource FROM dbc_Spelleffect,dbc_Spell where dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_Spell.m_ID =" + arg1 + ";";
             }
             else
             {
-                sql = "SELECT dbc_spelleffect.m_effectPointsPerResource FROM dbc_spelleffect,dbc_spell where dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                sql = "SELECT dbc_Spelleffect.m_effectPointsPerResource FROM dbc_Spelleffect,dbc_Spell where dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
             }
 
             //  Console.WriteLine(sql);
@@ -2369,11 +2369,11 @@ namespace wowSpellArgsReplace
             {
                 //Console.WriteLine();
 
-                sql = "SELECT dbc_spelleffect.m_effectAmplitude FROM dbc_spelleffect,dbc_spell where dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_spell.m_ID =" + arg1 + ";";
+                sql = "SELECT dbc_Spelleffect.m_effectAmplitude FROM dbc_Spelleffect,dbc_Spell where dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_Spell.m_ID =" + arg1 + ";";
             }
             else
             {
-                sql = "SELECT dbc_spelleffect.m_effectAmplitude FROM dbc_spelleffect,dbc_spell where dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                sql = "SELECT dbc_Spelleffect.m_effectAmplitude FROM dbc_Spelleffect,dbc_Spell where dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
             }
 
             //  Console.WriteLine(sql);
@@ -2393,7 +2393,7 @@ namespace wowSpellArgsReplace
             {
                 if (arg1.Length > 0)
                 {
-                    sql = "SELECT dbc_spelleffect.m_effectAmplitude FROM dbc_spelleffect,dbc_spell where dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =0 and dbc_spell.m_ID =" + arg1 + ";";
+                    sql = "SELECT dbc_Spelleffect.m_effectAmplitude FROM dbc_Spelleffect,dbc_Spell where dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =0 and dbc_Spell.m_ID =" + arg1 + ";";
                     da = getDataSet(sql);
                     rtstr = generalValuesCatcher(da, key);
                     if (!rtstr.Equals("NULL"))
@@ -2402,7 +2402,7 @@ namespace wowSpellArgsReplace
                     }
                     else
                     {
-                        sql = "SELECT dbc_spelleffect.m_effectAmplitude FROM dbc_spelleffect,dbc_spell where dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                        sql = "SELECT dbc_Spelleffect.m_effectAmplitude FROM dbc_Spelleffect,dbc_Spell where dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
                         da = getDataSet(sql);
                         rtstr = generalValuesCatcher(da, key);
                         if (!rtstr.Equals("NULL"))
@@ -2411,7 +2411,7 @@ namespace wowSpellArgsReplace
                         }
                         else
                         {
-                            sql = "SELECT dbc_spelleffect.m_effectAmplitude FROM dbc_spelleffect,dbc_spell where dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =0 and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                            sql = "SELECT dbc_Spelleffect.m_effectAmplitude FROM dbc_Spelleffect,dbc_Spell where dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =0 and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
                             da = getDataSet(sql);
                             rtstr = generalValuesCatcher(da, key);
                             if (!rtstr.Equals("NULL"))
@@ -2427,7 +2427,7 @@ namespace wowSpellArgsReplace
                 }
                 else
                 {
-                    sql = "SELECT dbc_spelleffect.m_effectAmplitude FROM dbc_spelleffect,dbc_spell where dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =0 and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                    sql = "SELECT dbc_Spelleffect.m_effectAmplitude FROM dbc_Spelleffect,dbc_Spell where dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =0 and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
                     da = getDataSet(sql);
                     rtstr = generalValuesCatcher(da, key);
                     if (!rtstr.Equals("NULL"))
@@ -2476,11 +2476,11 @@ namespace wowSpellArgsReplace
             {
                 //Console.WriteLine();
 
-                sql = "SELECT dbc_spellauraoptions.m_procChance FROM dbc_spellauraoptions where dbc_spellauraoptions.m_spellID =" + arg1 + ";";
+                sql = "SELECT dbc_Spellauraoptions.m_procChance FROM dbc_Spellauraoptions where dbc_Spellauraoptions.m_spellID =" + arg1 + ";";
             }
             else
             {
-                sql = "SELECT dbc_spellauraoptions.m_procChance FROM dbc_spellauraoptions where dbc_spellauraoptions.m_spellID =" + currentSpell.m_ID + ";";
+                sql = "SELECT dbc_Spellauraoptions.m_procChance FROM dbc_Spellauraoptions where dbc_Spellauraoptions.m_spellID =" + currentSpell.m_ID + ";";
             }
 
             //  Console.WriteLine(sql);
@@ -2501,7 +2501,7 @@ namespace wowSpellArgsReplace
             {
                 if (arg1.Length > 0)
                 {
-                    sql = "SELECT dbc_spellauraoptions.m_procChance FROM dbc_spellauraoptions where dbc_spellauraoptions.m_spellID =" + currentSpell.m_ID + ";";
+                    sql = "SELECT dbc_Spellauraoptions.m_procChance FROM dbc_Spellauraoptions where dbc_Spellauraoptions.m_spellID =" + currentSpell.m_ID + ";";
                     da = getDataSet(sql);
                     rtstr = generalValuesCatcher(da, key);
                     return rtstr;
@@ -2543,11 +2543,11 @@ namespace wowSpellArgsReplace
             {
                 //Console.WriteLine();
 
-                sql = "SELECT dbc_spelltargetrestrictions.m_maxTargets FROM dbc_spelltargetrestrictions where dbc_spelltargetrestrictions.m_spellID =" + arg1 + ";";
+                sql = "SELECT dbc_Spelltargetrestrictions.m_maxTargets FROM dbc_Spelltargetrestrictions where dbc_Spelltargetrestrictions.m_spellID =" + arg1 + ";";
             }
             else
             {
-                sql = "SELECT dbc_spelltargetrestrictions.m_maxTargets FROM dbc_spelltargetrestrictions where dbc_spelltargetrestrictions.m_spellID =" + currentSpell.m_ID + ";";
+                sql = "SELECT dbc_Spelltargetrestrictions.m_maxTargets FROM dbc_Spelltargetrestrictions where dbc_Spelltargetrestrictions.m_spellID =" + currentSpell.m_ID + ";";
             }
 
             //  Console.WriteLine(sql);
@@ -2567,7 +2567,7 @@ namespace wowSpellArgsReplace
             {
                 if (arg1.Length > 0)
                 {
-                    sql = "SELECT dbc_spelltargetrestrictions.m_maxTargets FROM dbc_spelltargetrestrictions where dbc_spelltargetrestrictions.m_spellID =" + currentSpell.m_ID + ";";
+                    sql = "SELECT dbc_Spelltargetrestrictions.m_maxTargets FROM dbc_Spelltargetrestrictions where dbc_Spelltargetrestrictions.m_spellID =" + currentSpell.m_ID + ";";
                     da = getDataSet(sql);
                     rtstr = generalValuesCatcher(da, key);
                     return rtstr;
@@ -2608,11 +2608,11 @@ namespace wowSpellArgsReplace
             {
                 //Console.WriteLine();
 
-                sql = "SELECT dbc_spellauraoptions.m_stackAmount FROM dbc_spellauraoptions where dbc_spellauraoptions.m_spellID =" + arg1 + ";";
+                sql = "SELECT dbc_Spellauraoptions.m_stackAmount FROM dbc_Spellauraoptions where dbc_Spellauraoptions.m_spellID =" + arg1 + ";";
             }
             else
             {
-                sql = "SELECT dbc_spellauraoptions.m_stackAmount FROM dbc_spellauraoptions where dbc_spellauraoptions.m_spellID =" + currentSpell.m_ID + ";";
+                sql = "SELECT dbc_Spellauraoptions.m_stackAmount FROM dbc_Spellauraoptions where dbc_Spellauraoptions.m_spellID =" + currentSpell.m_ID + ";";
             }
 
             //  Console.WriteLine(sql);
@@ -2633,7 +2633,7 @@ namespace wowSpellArgsReplace
             {
                 if (arg1.Length > 0)
                 {
-                    sql = "SELECT dbc_spellauraoptions.m_stackAmount FROM dbc_spellauraoptions where dbc_spellauraoptions.m_spellID =" + currentSpell.m_ID + ";";
+                    sql = "SELECT dbc_Spellauraoptions.m_stackAmount FROM dbc_Spellauraoptions where dbc_Spellauraoptions.m_spellID =" + currentSpell.m_ID + ";";
                     da = getDataSet(sql);
                     rtstr = generalValuesCatcher(da, key);
                     return rtstr;
@@ -2673,11 +2673,11 @@ namespace wowSpellArgsReplace
             {
                 //Console.WriteLine();
 
-                sql = "SELECT dbc_spelleffect.m_effectBasePoints FROM dbc_spell,dbc_spelleffect where dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =" + 0 + " and dbc_spell.m_ID =" + arg1 + ";";
+                sql = "SELECT dbc_Spelleffect.m_effectBasePoints FROM dbc_Spell,dbc_Spelleffect where dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =" + 0 + " and dbc_Spell.m_ID =" + arg1 + ";";
             }
             else
             {
-                sql = "SELECT dbc_spelleffect.m_effectBasePoints FROM dbc_spell,dbc_spelleffect where dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =" + 0 + " and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                sql = "SELECT dbc_Spelleffect.m_effectBasePoints FROM dbc_Spell,dbc_Spelleffect where dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =" + 0 + " and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
             }
 
             //  Console.WriteLine(sql);
@@ -2725,11 +2725,11 @@ namespace wowSpellArgsReplace
             {
                 //Console.WriteLine();
 
-                sql = "SELECT dbc_spellauraoptions.m_procCharges FROM dbc_spellauraoptions where dbc_spellauraoptions.m_spellID =" + arg1 + ";";
+                sql = "SELECT dbc_Spellauraoptions.m_procCharges FROM dbc_Spellauraoptions where dbc_Spellauraoptions.m_spellID =" + arg1 + ";";
             }
             else
             {
-                sql = "SELECT dbc_spellauraoptions.m_procCharges FROM dbc_spellauraoptions where dbc_spellauraoptions.m_spellID =" + currentSpell.m_ID + ";";
+                sql = "SELECT dbc_Spellauraoptions.m_procCharges FROM dbc_Spellauraoptions where dbc_Spellauraoptions.m_spellID =" + currentSpell.m_ID + ";";
             }
 
             //  Console.WriteLine(sql);
@@ -2750,7 +2750,7 @@ namespace wowSpellArgsReplace
             {
                 if (arg1.Length > 0)
                 {
-                    sql = "SELECT dbc_spellauraoptions.m_procCharges FROM dbc_spellauraoptions where dbc_spellauraoptions.m_spellID =" + currentSpell.m_ID + ";";
+                    sql = "SELECT dbc_Spellauraoptions.m_procCharges FROM dbc_Spellauraoptions where dbc_Spellauraoptions.m_spellID =" + currentSpell.m_ID + ";";
                     da = getDataSet(sql);
                     rtstr = generalValuesCatcher(da, key);
                     return rtstr;
@@ -2790,11 +2790,11 @@ namespace wowSpellArgsReplace
             {
                 //Console.WriteLine();
 
-                sql = "SELECT dbc_spelltargetrestrictions.m_maxTargetLevel FROM dbc_spelltargetrestrictions where dbc_spelltargetrestrictions.m_spellID =" + arg1 + ";";
+                sql = "SELECT dbc_Spelltargetrestrictions.m_maxTargetLevel FROM dbc_Spelltargetrestrictions where dbc_Spelltargetrestrictions.m_spellID =" + arg1 + ";";
             }
             else
             {
-                sql = "SELECT dbc_spelltargetrestrictions.m_maxTargetLevel FROM dbc_spelltargetrestrictions where dbc_spelltargetrestrictions.m_spellID =" + currentSpell.m_ID + ";";
+                sql = "SELECT dbc_Spelltargetrestrictions.m_maxTargetLevel FROM dbc_Spelltargetrestrictions where dbc_Spelltargetrestrictions.m_spellID =" + currentSpell.m_ID + ";";
             }
 
             //  Console.WriteLine(sql);
@@ -2815,7 +2815,7 @@ namespace wowSpellArgsReplace
             {
                 if (arg1.Length > 0)
                 {
-                    sql = "SELECT dbc_spelltargetrestrictions.m_maxTargetLevel FROM dbc_spelltargetrestrictions where dbc_spelltargetrestrictions.m_spellID =" + currentSpell.m_ID + ";";
+                    sql = "SELECT dbc_Spelltargetrestrictions.m_maxTargetLevel FROM dbc_Spelltargetrestrictions where dbc_Spelltargetrestrictions.m_spellID =" + currentSpell.m_ID + ";";
                     da = getDataSet(sql);
                     rtstr = generalValuesCatcher(da, key);
                     return rtstr;
@@ -2854,11 +2854,11 @@ namespace wowSpellArgsReplace
             {
                 //Console.WriteLine();
 
-                sql = "SELECT dbc_spelleffect.m_effectChainTargets FROM dbc_spell,dbc_spelleffect where dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_spell.m_ID =" + arg1 + ";";
+                sql = "SELECT dbc_Spelleffect.m_effectChainTargets FROM dbc_Spell,dbc_Spelleffect where dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_Spell.m_ID =" + arg1 + ";";
             }
             else
             {
-                sql = "SELECT dbc_spelleffect.m_effectChainTargets FROM dbc_spell,dbc_spelleffect where dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                sql = "SELECT dbc_Spelleffect.m_effectChainTargets FROM dbc_Spell,dbc_Spelleffect where dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
             }
 
             //  Console.WriteLine(sql);
@@ -2877,7 +2877,7 @@ namespace wowSpellArgsReplace
             {
                 if (arg1.Length > 0)
                 {
-                    sql = "SELECT dbc_spelleffect.m_effectChainTargets FROM dbc_spell,dbc_spelleffect where dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =0 and dbc_spell.m_ID =" + arg1 + ";";
+                    sql = "SELECT dbc_Spelleffect.m_effectChainTargets FROM dbc_Spell,dbc_Spelleffect where dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =0 and dbc_Spell.m_ID =" + arg1 + ";";
                     da = getDataSet(sql);
                     rtstr = generalValuesCatcher(da, key);
                     if (!rtstr.Equals("NULL"))
@@ -2886,7 +2886,7 @@ namespace wowSpellArgsReplace
                     }
                     else
                     {
-                        sql = "SELECT dbc_spelleffect.m_effectChainTargets FROM dbc_spell,dbc_spelleffect where dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                        sql = "SELECT dbc_Spelleffect.m_effectChainTargets FROM dbc_Spell,dbc_Spelleffect where dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =" + (int.Parse(arg2) - 1) + " and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
                         da = getDataSet(sql);
                         rtstr = generalValuesCatcher(da, key);
                         if (!rtstr.Equals("NULL"))
@@ -2895,7 +2895,7 @@ namespace wowSpellArgsReplace
                         }
                         else
                         {
-                            sql = "SELECT dbc_spelleffect.m_effectChainTargets FROM dbc_spell,dbc_spelleffect where dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =0 and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                            sql = "SELECT dbc_Spelleffect.m_effectChainTargets FROM dbc_Spell,dbc_Spelleffect where dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =0 and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
                             da = getDataSet(sql);
                             rtstr = generalValuesCatcher(da, key);
                             if (!rtstr.Equals("NULL"))
@@ -2911,7 +2911,7 @@ namespace wowSpellArgsReplace
                 }
                 else
                 {
-                    sql = "SELECT dbc_spelleffect.m_effectChainTargets FROM dbc_spell,dbc_spelleffect where dbc_spelleffect.m_spellID=dbc_spell.m_ID and dbc_spelleffect.m_effectIndex =0 and dbc_spell.m_ID =" + currentSpell.m_ID + ";";
+                    sql = "SELECT dbc_Spelleffect.m_effectChainTargets FROM dbc_Spell,dbc_Spelleffect where dbc_Spelleffect.m_spellID=dbc_Spell.m_ID and dbc_Spelleffect.m_effectIndex =0 and dbc_Spell.m_ID =" + currentSpell.m_ID + ";";
                     da = getDataSet(sql);
                     rtstr = generalValuesCatcher(da, key);
                     if (!rtstr.Equals("NULL"))
@@ -2967,11 +2967,11 @@ namespace wowSpellArgsReplace
             {
                 //Console.WriteLine();
 
-                sql = "SELECT dbc_spellprocsperminute.m_baseProcRate FROM dbc_spellauraoptions,dbc_spellprocsperminute where dbc_spellauraoptions.m_spellProcsPerMinuteID=dbc_spellprocsperminute.m_ID and dbc_spellauraoptions.m_spellID =" + arg1 + ";";
+                sql = "SELECT dbc_Spellprocsperminute.m_baseProcRate FROM dbc_Spellauraoptions,dbc_Spellprocsperminute where dbc_Spellauraoptions.m_spellProcsPerMinuteID=dbc_Spellprocsperminute.m_ID and dbc_Spellauraoptions.m_spellID =" + arg1 + ";";
             }
             else
             {
-                sql = "SELECT dbc_spellprocsperminute.m_baseProcRate FROM dbc_spellauraoptions,dbc_spellprocsperminute where dbc_spellauraoptions.m_spellProcsPerMinuteID=dbc_spellprocsperminute.m_ID and dbc_spellauraoptions.m_spellID =" + currentSpell.m_ID + ";";
+                sql = "SELECT dbc_Spellprocsperminute.m_baseProcRate FROM dbc_Spellauraoptions,dbc_Spellprocsperminute where dbc_Spellauraoptions.m_spellProcsPerMinuteID=dbc_Spellprocsperminute.m_ID and dbc_Spellauraoptions.m_spellID =" + currentSpell.m_ID + ";";
             }
 
 
@@ -2990,7 +2990,7 @@ namespace wowSpellArgsReplace
             {
                 if (arg1.Length > 0)
                 {
-                    sql = "SELECT dbc_spellprocsperminute.m_baseProcRate FROM dbc_spellauraoptions,dbc_spellprocsperminute where dbc_spellauraoptions.m_spellProcsPerMinuteID=dbc_spellprocsperminute.m_ID and dbc_spellauraoptions.m_spellID =" + currentSpell.m_ID + ";";
+                    sql = "SELECT dbc_Spellprocsperminute.m_baseProcRate FROM dbc_Spellauraoptions,dbc_Spellprocsperminute where dbc_Spellauraoptions.m_spellProcsPerMinuteID=dbc_Spellprocsperminute.m_ID and dbc_Spellauraoptions.m_spellID =" + currentSpell.m_ID + ";";
                     da = getDataSet(sql);
                     rtstr = generalValuesCatcher(da, key);
                     return rtstr;
@@ -3020,11 +3020,11 @@ namespace wowSpellArgsReplace
             {
                 //Console.WriteLine();
 
-                sql = "SELECT dbc_spellauraoptions.m_ICD FROM dbc_spellauraoptions where dbc_spellauraoptions.m_spellID =" + arg1 + ";";
+                sql = "SELECT dbc_Spellauraoptions.m_ICD FROM dbc_Spellauraoptions where dbc_Spellauraoptions.m_spellID =" + arg1 + ";";
             }
             else
             {
-                sql = "SELECT dbc_spellauraoptions.m_ICD FROM dbc_spellauraoptions where dbc_spellauraoptions.m_spellID =" + currentSpell.m_ID + ";";
+                sql = "SELECT dbc_Spellauraoptions.m_ICD FROM dbc_Spellauraoptions where dbc_Spellauraoptions.m_spellID =" + currentSpell.m_ID + ";";
             }
 
             //  Console.WriteLine(sql);
@@ -3045,7 +3045,7 @@ namespace wowSpellArgsReplace
             {
                 if (arg1.Length > 0)
                 {
-                    sql = "SELECT dbc_spellauraoptions.m_ICD FROM dbc_spellauraoptions where dbc_spellauraoptions.m_spellID =" + currentSpell.m_ID + ";";
+                    sql = "SELECT dbc_Spellauraoptions.m_ICD FROM dbc_Spellauraoptions where dbc_Spellauraoptions.m_spellID =" + currentSpell.m_ID + ";";
                     da = getDataSet(sql);
                     rtstr = generalValuesCatcher(da, key);
                     return rtstr;
@@ -3721,7 +3721,7 @@ namespace wowSpellArgsReplace
 
             if (currentSpell.m_spellDescriptionVariableID != 0)
             {
-                string sql = "SELECT dbc_spelldescriptionvariables.m_DecriptionVariable FROM dbc_spell,dbc_spelldescriptionvariables where dbc_spell.m_ID=" + currentSpell.m_ID + " and dbc_spelldescriptionvariables.m_ID=" + currentSpell.m_spellDescriptionVariableID + ";";
+                string sql = "SELECT dbc_Spelldescriptionvariables.m_DecriptionVariable FROM dbc_Spell,dbc_Spelldescriptionvariables where dbc_Spell.m_ID=" + currentSpell.m_ID + " and dbc_Spelldescriptionvariables.m_ID=" + currentSpell.m_spellDescriptionVariableID + ";";
 
 
                 //   Console.WriteLine(sql);
@@ -3838,7 +3838,7 @@ namespace wowSpellArgsReplace
             string buildID = arg.Replace("$@garrbuilding", "");
 
 
-            string sql = "SELECT dbc_garrbuilding.m_buildingIcon FROM dbc_garrbuilding where m_ID =" + buildID + ";";
+            string sql = "SELECT dbc_Garrbuilding.m_buildingIcon FROM dbc_Garrbuilding where m_ID =" + buildID + ";";
 
 
 
@@ -3857,7 +3857,7 @@ namespace wowSpellArgsReplace
 
             }
 
-            sql = "SELECT m_levelDescription,m_level FROM dbc_garrbuilding where m_buildingIcon = " + m_buildingIcon + " order by m_level;";
+            sql = "SELECT m_levelDescription,m_level FROM dbc_Garrbuilding where m_buildingIcon = " + m_buildingIcon + " order by m_level;";
 
             da = getDataSet(sql);
 
@@ -3887,7 +3887,7 @@ namespace wowSpellArgsReplace
             string spellID = arg.Replace("$@spellicon", "");
 
 
-            string sql = "SELECT dbc_spellicon.m_Name FROM dbc_spell,dbc_spellmisc,dbc_spellicon where  dbc_spell.m_spellMisc=dbc_spellMisc.m_ID and dbc_spellmisc.m_spellIconID=dbc_spellicon.m_ID and dbc_spell.m_ID=" + spellID + ";";
+            string sql = "SELECT dbc_Spellicon.m_Name FROM dbc_Spell,dbc_Spellmisc,dbc_Spellicon where  dbc_Spell.m_spellMisc=dbc_SpellMisc.m_ID and dbc_Spellmisc.m_spellIconID=dbc_Spellicon.m_ID and dbc_Spell.m_ID=" + spellID + ";";
 
 
 
