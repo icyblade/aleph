@@ -409,5 +409,11 @@
     <field type="byte" name="unknown1" />
     <field type="byte" name="m_classID" />
   </Talent>
-
+  <SpellDescriptionVariables build="20810">
+    <index>
+      <primary>m_ID</primary>
+    </index>
+    <field type="index" name="m_ID" />
+    <field type="string" name="m_DecriptionVariable" />
+  </SpellDescriptionVariables>
 </DBFilesClient>
