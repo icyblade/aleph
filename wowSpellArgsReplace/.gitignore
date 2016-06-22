@@ -1,0 +1,10 @@
+*.sln.ide
+*.suo
+[Bb]in
+[Oo]bj
+*.user
+*.suo
+*.user
+
+*/bin/
+*/obj/
